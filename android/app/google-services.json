@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "249630243767",
+    "firebase_url": "https://dulces-eliecer-coding-default-rtdb.firebaseio.com",
+    "project_id": "dulces-eliecer-coding",
+    "storage_bucket": "dulces-eliecer-coding.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249630243767:android:0c6a0e4b970b1694a70632",
+        "android_client_info": {
+          "package_name": "com.example.gr_dulces_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "249630243767-746tbiiikurmku722sqj2jegnrkbl80d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeEprqkyAXCvhuaGxGwYTMHXJ2ewxG5ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "249630243767-746tbiiikurmku722sqj2jegnrkbl80d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249630243767:android:c185badadb9fb98fa70632",
+        "android_client_info": {
+          "package_name": "com.example.quiero_dulces"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "249630243767-746tbiiikurmku722sqj2jegnrkbl80d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeEprqkyAXCvhuaGxGwYTMHXJ2ewxG5ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "249630243767-746tbiiikurmku722sqj2jegnrkbl80d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
