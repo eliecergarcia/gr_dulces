@@ -26,9 +26,9 @@ class _LoginPageState extends State<LoginPage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 40,
+                    fontSize: 55,
                     fontWeight: FontWeight.bold,
-                    //fontFamily: 'Impact',
+                    fontFamily: 'Impact',
                   ),
                 ),
                 SizedBox(
@@ -40,11 +40,10 @@ class _LoginPageState extends State<LoginPage> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          print("2");
                           selectLogin = true;
                         });
                       },
-                      child: Text(
+                      child: const Text(
                         'Registrate',
                         style: TextStyle(
                           color: Colors.white,
@@ -56,12 +55,11 @@ class _LoginPageState extends State<LoginPage> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          print('object');
                           selectLogin = false;
                         });
                       },
-                      child: Text(
-                        'Iniciar Sesion',
+                      child: const Text(
+                        'Inicia Sesion',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 25.0,
@@ -116,12 +114,13 @@ class _LoginPageState extends State<LoginPage> {
         vertical: 15.0,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
         'Registrarme',
         style: TextStyle(
           color: Colors.white,
+          fontWeight: FontWeight.w700,
           fontSize: 20.0,
         ),
       ),
@@ -145,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         _textFieldPassword(),
         SizedBox(
-          height: 20.0,
+          height: 30.0,
         ),
         _buttonSignUp(),
       ],
@@ -155,8 +154,71 @@ class _LoginPageState extends State<LoginPage> {
   Widget _columnLogin() {
     return Column(
       children: [
-        Container(),
+        SizedBox(
+          height: 15.0,
+        ),
+        _textFieldEmailLogin(),
+        SizedBox(
+          height: 15.0,
+        ),
+        _textFieldPasswordLogin(),
+        SizedBox(
+          height: 15.0,
+        ),
+        Text(
+          'Olvidé mi Contraseña',
+          style: TextStyle(
+            fontSize: 15.0,
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        SizedBox(
+          height: 65.0,
+        ),
+        _buttonLogin(),
       ],
+    );
+  }
+
+  Widget _textFieldEmailLogin() {
+    return _textFieldGeneral(
+      labelText: 'Correo',
+      hintText: 'example@test.com',
+      keyboardType: TextInputType.emailAddress,
+      onChanged: (value) {},
+      icon: Icons.email_outlined,
+    );
+  }
+
+  Widget _textFieldPasswordLogin() {
+    return _textFieldGeneral(
+      labelText: 'Contraseña',
+      onChanged: (value) {},
+      icon: Icons.lock_outline_rounded,
+      obscureText: true,
+    );
+  }
+
+  Widget _buttonLogin() {
+    return RaisedButton(
+      color: Color(0xffFF6969),
+      padding: EdgeInsets.symmetric(
+        horizontal: 140.0,
+        vertical: 15.0,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        'Entrar',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      onPressed: () {},
     );
   }
 }

@@ -68,9 +68,9 @@ flutter:
         - asset: assets/fonts/AvenirLTStd-Medium.otf
         - asset: assets/fonts/AvenirLTStd-Roman.otf
   #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
+    - family: Impact
+      fonts:
+        - asset: assets/fonts/impact.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #

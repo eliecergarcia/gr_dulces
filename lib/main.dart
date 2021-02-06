@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiero_dulces/pages/categories_page.dart';
 import 'package:quiero_dulces/pages/login_page.dart';
 
 void main() {
@@ -12,12 +13,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'AvenirLTstd',
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: LoginPage.id,
       routes: {
         LoginPage.id: (_) => LoginPage(),
+        CategoriesPage.id: (_) => CategoriesPage(),
       },
     );
   }
