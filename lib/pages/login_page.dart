@@ -163,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         _textFieldPasswordLogin(),
         SizedBox(
-          height: 15.0,
+          height: 25.0,
         ),
         Text(
           'Olvidé mi Contraseña',
