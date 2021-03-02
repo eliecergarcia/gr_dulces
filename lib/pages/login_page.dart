@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:quiero_dulces/pages/categories_page.dart';
 
 class LoginPage extends StatefulWidget {
   static String id = "login_page";
@@ -107,14 +108,23 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buttonSignUp() {
-    return RaisedButton(
-      color: Color(0xffFF6969),
-      padding: EdgeInsets.symmetric(
-        horizontal: 110.0,
-        vertical: 15.0,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+    return TextButton(
+      style: ButtonStyle(
+        elevation: MaterialStateProperty.all(10),
+        backgroundColor: MaterialStateProperty.all(
+          Color(0xffFF6969),
+        ),
+        padding: MaterialStateProperty.all(
+          EdgeInsets.symmetric(
+            horizontal: 110,
+            vertical: 15.0,
+          ),
+        ),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
       ),
       child: Text(
         'Registrarme',
@@ -202,6 +212,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buttonLogin() {
     return RaisedButton(
+      elevation: 10.0,
       color: Color(0xffFF6969),
       padding: EdgeInsets.symmetric(
         horizontal: 140.0,
@@ -218,7 +229,11 @@ class _LoginPageState extends State<LoginPage> {
           fontWeight: FontWeight.w700,
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        setState(() {
+          Navigator.pushNamed(context, CategoriesPage.id);
+        });
+      },
     );
   }
 }
