@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quiero_dulces/pages/cart_page.dart';
 import 'package:quiero_dulces/pages/categories_page.dart';
 import 'package:quiero_dulces/pages/category_selected.dart';
 import 'package:quiero_dulces/pages/login_page.dart';
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
         routes: {
           LoginPage.id: (_) => LoginPage(),
           CategoriesPage.id: (_) => CategoriesPage(),
-          CategorySelectedPage.id: (_) => CategorySelectedPage(),
+          CategorySelectedPage.id: (_) => CategorySelectedPage(""),
+          CarPage.id: (_) => CarPage(),
         },
       ),
     );

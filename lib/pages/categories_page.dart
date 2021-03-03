@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:quiero_dulces/pages/category_selected.dart';
 import 'package:quiero_dulces/widgets/constants.dart';
+import 'package:quiero_dulces/widgets/lateral_menu.dart';
 
-class CategoriesPage extends StatelessWidget {
+import 'cart_page.dart';
+
+class CategoriesPage extends StatefulWidget {
   static String id = 'categories_page';
+
+  @override
+  _CategoriesPageState createState() => _CategoriesPageState();
+}
+
+class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -16,14 +26,19 @@ class CategoriesPage extends StatelessWidget {
               padding: const EdgeInsets.only(right: 15.0),
               child: IconButton(
                 icon: Icon(FontAwesomeIcons.cartPlus),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    Navigator.pushNamed(context, CarPage.id);
+                  });
+                },
               ),
             ),
           ],
           backgroundColor: colorRojo,
         ),
-        drawer: Drawer(),
+        drawer: LateralMenu(),
         body: SingleChildScrollView(
+          physics: ScrollPhysics(),
           child: Column(
             children: [
               Container(
@@ -43,12 +58,25 @@ class CategoriesPage extends StatelessWidget {
                 ),
               ),
               gestureDetectorCategory(
-                  size, "Chocolates", Colors.white, colorRojo),
-              gestureDetectorCategory(size, 'paletas', colorRojo, Colors.white),
+                  size, "Chocolates", Colors.white, colorRojo, () {
+                navigateCategory('Chocolates');
+              }),
+              gestureDetectorCategory(size, 'paletas', colorRojo, Colors.white,
+                  () {
+                navigateCategory('paletas');
+              }),
               gestureDetectorCategory(
-                  size, 'con chile', Colors.white, colorRojo),
-              gestureDetectorCategory(size, 'Bolis', colorRojo, Colors.white),
-              gestureDetectorCategory(size, 'botana', Colors.white, colorRojo),
+                  size, 'con chile', Colors.white, colorRojo, () {
+                navigateCategory('con chile');
+              }),
+              gestureDetectorCategory(size, 'Bolis', colorRojo, Colors.white,
+                  () {
+                navigateCategory('bolis');
+              }),
+              gestureDetectorCategory(size, 'botana', Colors.white, colorRojo,
+                  () {
+                navigateCategory('botana');
+              }),
             ],
           ),
         ),
@@ -56,8 +84,19 @@ class CategoriesPage extends StatelessWidget {
     );
   }
 
-  GestureDetector gestureDetectorCategory(
-      Size size, String categoryText, Color colorBackground, Color colorText) {
+  void navigateCategory(String category) {
+    setState(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => CategorySelectedPage(category),
+        ),
+      );
+    });
+  }
+
+  GestureDetector gestureDetectorCategory(Size size, String categoryText,
+      Color colorBackground, Color colorText, Function onTap) {
     return GestureDetector(
       child: Container(
         width: double.infinity,
@@ -76,9 +115,7 @@ class CategoriesPage extends StatelessWidget {
           ),
         ),
       ),
-      onTap: () {
-        print(categoryText);
-      },
+      onTap: onTap,
     );
   }
 }

@@ -211,15 +211,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buttonLogin() {
-    return RaisedButton(
-      elevation: 10.0,
-      color: Color(0xffFF6969),
-      padding: EdgeInsets.symmetric(
-        horizontal: 140.0,
-        vertical: 15.0,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+            (states) => Color(0xffFF6969)),
       ),
       child: Text(
         'Entrar',
