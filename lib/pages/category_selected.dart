@@ -52,44 +52,42 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
     final carItems = Provider.of<CartModel>(context);
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: colorRojo,
-            title: Text(
-              '${_categoryController.text}'.toUpperCase(),
-              style: TextStyle(
-                fontSize: 25,
-                fontFamily: 'Impact',
-              ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: IconButton(
-                  icon: Icon(FontAwesomeIcons.cartPlus),
-                  onPressed: () {
-                    setState(() {
-                      Navigator.pushNamed(context, CarPage.id);
-                    });
-                  },
+        drawer: LateralMenu(),
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: colorRojo,
+              title: Text('${_categoryController.text}'),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: IconButton(
+                    icon: Icon(FontAwesomeIcons.cartPlus),
+                    onPressed: () {
+                      setState(
+                        () {
+                          Navigator.pushNamed(context, CarPage.id);
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ),
-          drawer: LateralMenu(),
-          body: CustomScrollView(
-            slivers: [
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int position) {
+              ],
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int position) {
                   if (items[position].category == _categoryController.text) {
                     return _cardProduct(position);
-                  } else {
-                    return SizedBox.shrink();
                   }
-                }, childCount: items.length),
+                  return SizedBox.shrink();
+                },
+                childCount: items.length,
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -109,17 +107,72 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
   }
 
   Widget _cardProduct(int position) {
-    return Card(
-      elevation: 10.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Card(
+        elevation: 10.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${items[position].name}',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    containerImgItem(),
+                  ],
+                ),
+              ],
+            ),
+            elevatedButtonAddCarItem(),
+          ],
+        ),
       ),
-      child: Row(
-        children: [
-          Flexible(
-            child: Text('data'),
-          ),
-        ],
+    );
+  }
+
+  Widget containerImgItem() {
+    return Container(
+      margin: EdgeInsets.only(top: 5.0, right: 5.0),
+      height: 100.0,
+      width: 100.0,
+      decoration: BoxDecoration(
+        color: colorRojo,
+        borderRadius: BorderRadius.circular(15),
+        image: DecorationImage(
+          image: AssetImage("assets/img/logodulces.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget elevatedButtonAddCarItem() {
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+            (states) => Colors.redAccent),
+      ),
+      onPressed: () {},
+      child: Text(
+        'Agregar',
+        style: TextStyle(
+          fontFamily: 'Impact',
+          fontSize: 20.0,
+        ),
       ),
     );
   }

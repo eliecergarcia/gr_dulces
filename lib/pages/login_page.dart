@@ -216,6 +216,11 @@ class _LoginPageState extends State<LoginPage> {
         elevation: MaterialStateProperty.resolveWith<double>(
           (states) => 10.0,
         ),
+        shape: MaterialStateProperty.resolveWith(
+          (states) => RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
             (states) => Color(0xffFF6969)),
         padding: MaterialStateProperty.resolveWith<EdgeInsets>(
