@@ -22,17 +22,15 @@ class LateralMenu extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(
-                  child: Flexible(
-                    child: Text(
-                      'Quiero \nDulces'.toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 40.0,
-                        //fontWeight: FontWeight.w600,
-                        fontFamily: 'Impact',
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
+                  child: Text(
+                    'Quiero \nDulces'.toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 40.0,
+                      //fontWeight: FontWeight.w600,
+                      fontFamily: 'Impact',
+                      color: Colors.white,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quiero_dulces/objects/cart_model.dart';
+import 'package:quiero_dulces/widgets/lateral_menu.dart';
 
 class CarPage extends StatelessWidget {
   static String id = "cart_page";
@@ -11,13 +12,14 @@ class CarPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Orden',
+            'Orden'.toUpperCase(),
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
-          //backgroundColor: Colors.white,
+          //backgroundColor: Colors.grey.shade300,
         ),
+        drawer: LateralMenu(),
         body: Center(
           child: (carItems.length > 0) ? Text("Funciona") : Text("No funciona"),
         ),

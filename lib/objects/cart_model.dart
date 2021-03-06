@@ -15,7 +15,7 @@ class CartModel extends ChangeNotifier {
     }
     return total;
   }
-
+  
   void add(Product products) {
     _products.add(products);
     notifyListeners();

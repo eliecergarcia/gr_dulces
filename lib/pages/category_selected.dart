@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -49,7 +48,6 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
 
   @override
   Widget build(BuildContext context) {
-    final carItems = Provider.of<CartModel>(context);
     return SafeArea(
       child: Scaffold(
         drawer: LateralMenu(),
@@ -57,7 +55,9 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
           slivers: [
             SliverAppBar(
               backgroundColor: colorRojo,
-              title: Text('${_categoryController.text}'),
+              title: Text(
+                '${_categoryController.text}'.toUpperCase(),
+              ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 15.0),
@@ -108,7 +108,7 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
 
   Widget _cardProduct(int position) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: Card(
         elevation: 10.0,
         shape: RoundedRectangleBorder(
@@ -119,25 +119,31 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        '${items[position].name}',
-                        style: TextStyle(fontSize: 20.0),
+                Flexible(
+                  child: ListTile(
+                    title: Text(
+                      '${items[position].name}',
+                      style: TextStyle(fontSize: 25.0),
+                    ),
+                    subtitle: Text(
+                      '${items[position].description}',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ],
+                  ),
                 ),
-                Column(
-                  children: [
-                    containerImgItem(),
-                  ],
-                ),
+                containerImgItem(),
               ],
             ),
-            elevatedButtonAddCarItem(),
+            SizedBox(
+              height: 10.0,
+            ),
+            elevatedButtonAddCarItem(position),
+            SizedBox(
+              height: 10.0,
+            ),
           ],
         ),
       ),
@@ -160,15 +166,26 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
     );
   }
 
-  Widget elevatedButtonAddCarItem() {
+  Widget elevatedButtonAddCarItem(int position) {
+    final carItems = Provider.of<CartModel>(context);
     return ElevatedButton(
       style: ButtonStyle(
+        elevation: MaterialStateProperty.resolveWith((states) => 10),
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
             (states) => Colors.redAccent),
       ),
-      onPressed: () {},
+      onPressed: () {
+        print("agregado");
+        setState(() {
+          carItems.add(items[position]);
+          print('${carItems.products.length}');
+          for (var i = 0; i < carItems.products.length; i++) {
+            print('${carItems.products[i].name}');
+          }
+        });
+      },
       child: Text(
-        'Agregar',
+        'Agregar'.toUpperCase(),
         style: TextStyle(
           fontFamily: 'Impact',
           fontSize: 20.0,
