@@ -42,3 +42,32 @@ class ListTileMenu extends StatelessWidget {
     );
   }
 }
+
+class AppBarNavigation extends StatelessWidget implements PreferredSizeWidget {
+  Size get preferredSize => new Size.fromHeight(kToolbarHeight);
+  final String title;
+  final List<Widget> actions;
+  final Color colorBackground;
+  final Color colorFont;
+  AppBarNavigation({
+    this.title,
+    this.actions,
+    this.colorFont = Colors.black,
+    this.colorBackground = colorRojo,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      elevation: 5,
+      title: Text(
+        title,
+        style: TextStyle(
+          color: colorFont,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      backgroundColor: colorBackground,
+      actions: actions,
+    );
+  }
+}

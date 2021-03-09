@@ -24,15 +24,9 @@ class _CarPageState extends State<CarPage> {
     //final carItems = Provider.of<CartModel>(context, listen: false).products;
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Orden'.toUpperCase(),
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          backgroundColor: Colors.grey.shade300,
+        appBar: AppBarNavigation(
+          title: "Orden",
+          colorFont: Colors.white,
         ),
         drawer: LateralMenu(),
         body: _itemsCardOrder(context),

@@ -19,9 +19,14 @@ class _LateralMenuState extends State<LateralMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      elevation: 20.0,
       child: ListView(
+        padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
+            duration: Duration(
+              milliseconds: 50,
+            ),
             decoration: BoxDecoration(
               color: colorRojo,
             ),
@@ -52,7 +57,7 @@ class _LateralMenuState extends State<LateralMenu> {
             ),
           ),
           ListTileMenu(
-            icon: FontAwesomeIcons.creditCard,
+            icon: FontAwesomeIcons.wallet,
             text: 'Método de Pago',
             function: () => Navigator.pushNamed(
               context,
@@ -60,12 +65,17 @@ class _LateralMenuState extends State<LateralMenu> {
             ),
           ),
           ListTileMenu(
-            icon: FontAwesomeIcons.ticketAlt,
+            icon: FontAwesomeIcons.receipt,
             text: "Mis Pedidos",
             function: () => Navigator.pushNamed(
               context,
               HistoryPage.id,
             ),
+          ),
+          ListTileMenu(
+            icon: FontAwesomeIcons.percentage,
+            text: "Cupones",
+            function: () {},
           ),
         ],
       ),

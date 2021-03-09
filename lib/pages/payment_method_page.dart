@@ -9,14 +9,10 @@ class PaymentMethodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Tus Métodos de Pago',
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-          backgroundColor: Colors.white,
+        appBar: AppBarNavigation(
+          title: 'Tus Métodos de Pago',
+          colorFont: Colors.white,
+          colorBackground: colorRojo,
         ),
         drawer: LateralMenu(),
         body: SingleChildScrollView(

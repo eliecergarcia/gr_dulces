@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           primaryIconTheme: IconThemeData(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         initialRoute: LoginPage.id,
