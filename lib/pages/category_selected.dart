@@ -58,6 +58,9 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
               backgroundColor: colorRojo,
               title: Text(
                 '${_categoryController.text}'.toUpperCase(),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               actions: [
                 Padding(

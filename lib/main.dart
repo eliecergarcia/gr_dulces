@@ -4,6 +4,7 @@ import 'package:quiero_dulces/pages/cart_page.dart';
 import 'package:quiero_dulces/pages/categories_page.dart';
 import 'package:quiero_dulces/pages/category_selected.dart';
 import 'package:quiero_dulces/pages/login_page.dart';
+import 'package:quiero_dulces/pages/payment_method_page.dart';
 
 import 'objects/cart_model.dart';
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
           CategoriesPage.id: (_) => CategoriesPage(),
           CategorySelectedPage.id: (_) => CategorySelectedPage(""),
           CarPage.id: (_) => CarPage(),
+          PaymentMethodPage.id: (_) => PaymentMethodPage(),
         },
       ),
     );
