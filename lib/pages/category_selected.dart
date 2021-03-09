@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quiero_dulces/objects/cart_model.dart';
 import 'package:quiero_dulces/objects/product.dart';
+import 'package:quiero_dulces/objects/product_card.dart';
 import 'package:quiero_dulces/widgets/constants.dart';
 import 'package:quiero_dulces/widgets/lateral_menu.dart';
 
@@ -23,12 +24,14 @@ final productReference = FirebaseDatabase.instance.reference().child('dulces');
 class _CategorySelectedPageState extends State<CategorySelectedPage> {
   TextEditingController _categoryController;
   List<Product> items;
+  List<ProductCard> itemsCardProduct;
   StreamSubscription<Event> _onProductAddedSubscription;
   StreamSubscription<Event> _onProductChangeSubscription;
 
   @override
   void initState() {
     items = [];
+    itemsCardProduct = [];
     _categoryController =
         TextEditingController(text: widget.category.toString());
     _onProductAddedSubscription =
@@ -36,6 +39,13 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
     _onProductChangeSubscription =
         productReference.onChildAdded.listen(_onProductUpdate);
     super.initState();
+  }
+
+  void addProductsToList() {
+    for (int i = 0; i < items.length; i++) {
+      itemsCardProduct[i].name = 'kitkat';
+      itemsCardProduct.add(itemsCardProduct[i]);
+    }
   }
 
   @override
@@ -93,7 +103,7 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
                           width: 20,
                           height: 20,
                           decoration: BoxDecoration(
-                            color: Colors.amberAccent,
+                            color: Colors.white,
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -106,6 +116,7 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int position) {
+                  //addProductsToList();
                   if (items[position].category == _categoryController.text) {
                     return _cardProduct(position);
                   }
