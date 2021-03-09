@@ -41,17 +41,19 @@ class LateralMenu extends StatelessWidget {
               FontAwesomeIcons.candyCane,
               color: Colors.redAccent,
             ),
-            title: Text(
-              'Categorias',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 20,
-              ),
-            ),
+            title: TextMenuLateral(text: "Categorias",),
             onTap: () => Navigator.pushNamed(context, CategoriesPage.id),
+          ),
+          ListTile(
+            leading: Icon(
+              FontAwesomeIcons.solidCreditCard,
+              color: Colors.redAccent,
+            ),
+            title: TextMenuLateral(text: "Mey",),
           ),
         ],
       ),
     );
   }
 }
+

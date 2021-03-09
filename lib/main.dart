@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
           fontFamily: 'AvenirLTstd',
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          primaryIconTheme: IconThemeData(
+            color: Colors.black,
+          ),
         ),
         initialRoute: LoginPage.id,
         routes: {

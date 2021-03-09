@@ -48,6 +48,7 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
 
   @override
   Widget build(BuildContext context) {
+    final carItems = Provider.of<CartModel>(context);
     return SafeArea(
       child: Scaffold(
         drawer: LateralMenu(),
@@ -61,15 +62,40 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 15.0),
-                  child: IconButton(
-                    icon: Icon(FontAwesomeIcons.cartPlus),
-                    onPressed: () {
-                      setState(
-                        () {
-                          Navigator.pushNamed(context, CarPage.id);
+                  child: Stack(
+                    children: [
+                      IconButton(
+                        icon: Icon(FontAwesomeIcons.cartPlus),
+                        onPressed: () {
+                          setState(
+                            () {
+                              Navigator.pushNamed(context, CarPage.id);
+                            },
+                          );
                         },
-                      );
-                    },
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Container(
+                          child: Text(
+                            '${carItems.products.length}',
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.black,
+                              fontFamily: 'Impact',
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.amberAccent,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -178,10 +204,6 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
         print("agregado");
         setState(() {
           carItems.add(items[position]);
-          print('${carItems.products.length}');
-          for (var i = 0; i < carItems.products.length; i++) {
-            print('${carItems.products[i].name}');
-          }
         });
       },
       child: Text(
