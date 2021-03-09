@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quiero_dulces/pages/categories_page.dart';
+import 'package:quiero_dulces/pages/history_page.dart';
 import 'package:quiero_dulces/pages/payment_method_page.dart';
 
 import 'constants.dart';
@@ -56,6 +57,14 @@ class _LateralMenuState extends State<LateralMenu> {
             function: () => Navigator.pushNamed(
               context,
               PaymentMethodPage.id,
+            ),
+          ),
+          ListTileMenu(
+            icon: FontAwesomeIcons.ticketAlt,
+            text: "Mis Pedidos",
+            function: () => Navigator.pushNamed(
+              context,
+              HistoryPage.id,
             ),
           ),
         ],
