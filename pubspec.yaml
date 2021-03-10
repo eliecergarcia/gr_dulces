@@ -28,6 +28,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   font_awesome_flutter:
+  rxdart:
   provider:
   firebase_core:
   google_maps_flutter:
