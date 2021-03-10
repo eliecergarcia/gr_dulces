@@ -15,12 +15,6 @@ class CarPage extends StatefulWidget {
 class _CarPageState extends State<CarPage> {
   static const double delivery = 20.00;
   @override
-  void initState() {
-    setState(() {});
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     //final carItems = Provider.of<CartModel>(context, listen: false).products;
     return SafeArea(
@@ -96,72 +90,23 @@ class _CarPageState extends State<CarPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
+                        Container(
+                          width: 500,
+                          height: 200,
+                          //color: Colors.red,
+                        ),
                         SizedBox(
-                          height: 10.0,
+                          height: 15.0,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              children: [
-                                Text(
-                                  'Subtotal',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  'Entrega',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  'Total',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  '\$$priceTotal',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  '\$$deliveryTotal',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  '\$$totalOrder',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            _columnTitles(),
+                            _columnPrices(
+                                priceTotal, deliveryTotal, totalOrder),
                           ],
                         ),
-
-                        //_emptyCart(),
+                        _buttonMakeOrder(),
                       ],
                     ),
                   ),
@@ -185,23 +130,87 @@ class _CarPageState extends State<CarPage> {
     );
   }
 
-  Widget _emptyCart() {
-    final carItems = Provider.of<CartModel>(context);
+  Widget _columnTitles() {
+    return Column(
+      children: [
+        Text(
+          'Subtotal',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Text(
+          'Entrega',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Text(
+          'Total',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _columnPrices(
+      String priceTotal, String deliveryTotal, String totalOrder) {
+    return Column(
+      children: [
+        Text(
+          '\$$priceTotal',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Text(
+          '\$$deliveryTotal',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Text(
+          '\$$totalOrder',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buttonMakeOrder() {
     return ElevatedButton(
-      onPressed: () {
-        setState(() {
-          carItems.removeAll();
-        });
-      },
       style: ButtonStyle(
+        shape: MaterialStateProperty.resolveWith(
+          (states) => RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(7.5),
+          ),
+        ),
+        elevation: MaterialStateProperty.resolveWith((states) => 10),
         backgroundColor:
-            MaterialStateProperty.resolveWith<Color>((states) => colorRojo),
+            MaterialStateProperty.resolveWith((states) => colorBlack),
       ),
+      onPressed: () {},
       child: Text(
-        "Vaciar Carrito",
+        'Realizar Pedido'.toUpperCase(),
         style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: 15,
+          fontFamily: 'Impact',
+          fontSize: 18,
         ),
       ),
     );

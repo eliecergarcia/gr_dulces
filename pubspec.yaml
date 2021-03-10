@@ -30,6 +30,7 @@ dependencies:
   font_awesome_flutter:
   provider:
   firebase_core:
+  google_maps_flutter:
   flutter_boxicons:
   animated_text_kit: ^2.0.0
   modal_progress_hud:
