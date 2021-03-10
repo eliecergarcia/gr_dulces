@@ -13,26 +13,15 @@ class CarPage extends StatefulWidget {
 }
 
 class _CarPageState extends State<CarPage> {
-  @override
-  void initState() {
-    setState(() {});
-    super.initState();
-  }
-
+  static const double delivery = 20.00;
   @override
   Widget build(BuildContext context) {
     //final carItems = Provider.of<CartModel>(context, listen: false).products;
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Orden'.toUpperCase(),
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          backgroundColor: Colors.grey.shade300,
+        appBar: AppBarNavigation(
+          title: "Orden",
+          colorFont: Colors.white,
         ),
         drawer: LateralMenu(),
         body: _itemsCardOrder(context),
@@ -48,33 +37,48 @@ class _CarPageState extends State<CarPage> {
             itemCount: carItems.products.length + 1,
             itemBuilder: (BuildContext context, int position) {
               if (position < carItems.products.length) {
+                final String priceFormat = numberFormat00(
+                    carItems.products[position].price.toDouble());
                 return Card(
                   elevation: 10.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7.5),
                   ),
-                  child: Row(
+                  child: Column(
                     children: [
-                      Flexible(
-                        child: ListTile(
-                          leading: Image.asset('assets/img/logodulces.png'),
-                          title: Text('${carItems.products[position].name}'),
-                          subtitle:
-                              Text('\$${carItems.products[position].price}'),
-                        ),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: ListTile(
+                              leading: Image.asset('assets/img/logodulces.png'),
+                              title:
+                                  Text('${carItems.products[position].name}'),
+                              subtitle: Text('\$$priceFormat'),
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(FontAwesomeIcons.trash),
+                            onPressed: () {
+                              setState(
+                                () {
+                                  carItems.removeProductSelected(
+                                      carItems.products[position]);
+                                },
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      IconButton(
-                          icon: Icon(FontAwesomeIcons.trash),
-                          onPressed: () {
-                            setState(() {
-                              carItems.removeProductSelected(
-                                  carItems.products[position]);
-                            });
-                          }),
                     ],
                   ),
                 );
               } else {
+                final String deliveryTotal = numberFormat00(delivery);
+                final String priceTotal =
+                    numberFormat00(carItems.totalPrice.toDouble());
+                final double total =
+                    double.parse(deliveryTotal) + double.parse(priceTotal);
+                final totalOrder = numberFormat00(total);
                 return Card(
                   elevation: 10.0,
                   shape: RoundedRectangleBorder(
@@ -82,17 +86,29 @@ class _CarPageState extends State<CarPage> {
                       7.5,
                     ),
                   ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text("Total: "),
-                          Text("\$${carItems.totalPrice}"),
-                        ],
-                      ),
-                      _emptyCart(),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 500,
+                          height: 200,
+                          //color: Colors.red,
+                        ),
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _columnTitles(),
+                            _columnPrices(
+                                priceTotal, deliveryTotal, totalOrder),
+                          ],
+                        ),
+                        _buttonMakeOrder(),
+                      ],
+                    ),
                   ),
                 );
               }
@@ -114,23 +130,87 @@ class _CarPageState extends State<CarPage> {
     );
   }
 
-  Widget _emptyCart() {
-    final carItems = Provider.of<CartModel>(context);
+  Widget _columnTitles() {
+    return Column(
+      children: [
+        Text(
+          'Subtotal',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Text(
+          'Entrega',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Text(
+          'Total',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _columnPrices(
+      String priceTotal, String deliveryTotal, String totalOrder) {
+    return Column(
+      children: [
+        Text(
+          '\$$priceTotal',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Text(
+          '\$$deliveryTotal',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Text(
+          '\$$totalOrder',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buttonMakeOrder() {
     return ElevatedButton(
-      onPressed: () {
-        setState(() {
-          carItems.removeAll();
-        });
-      },
       style: ButtonStyle(
+        shape: MaterialStateProperty.resolveWith(
+          (states) => RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(7.5),
+          ),
+        ),
+        elevation: MaterialStateProperty.resolveWith((states) => 10),
         backgroundColor:
-            MaterialStateProperty.resolveWith<Color>((states) => colorRojo),
+            MaterialStateProperty.resolveWith((states) => colorBlack),
       ),
+      onPressed: () {},
       child: Text(
-        "Vaciar Carrito",
+        'Realizar Pedido'.toUpperCase(),
         style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: 15,
+          fontFamily: 'Impact',
+          fontSize: 18,
         ),
       ),
     );

@@ -1,36 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/main.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+  <component name="ChangeListManager">
+    <list default="true" id="a23c0118-a7fe-4a1a-bea5-795fa58a5cdf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/cart_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/cart_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/lateral_menu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/lateral_menu.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ToolWindowManager">
-    <editor active="true" />
-    <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-    </layout>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_3a_API_30]" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <option name="show-excluded-files" value="false" />
-      </pane>
-    </panes>
+  <component name="ProjectId" id="1pXp13tkJyRGaakOc7KKX8HqwF8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="dart.analysis.tool.window.force.activate" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a23c0118-a7fe-4a1a-bea5-795fa58a5cdf" name="Default Changelist" comment="" />
+      <created>1615339070136</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1615339070136</updated>
+    </task>
+    <servers />
   </component>
 </project>

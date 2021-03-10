@@ -42,3 +42,45 @@ class ListTileMenu extends StatelessWidget {
     );
   }
 }
+
+class AppBarNavigation extends StatelessWidget implements PreferredSizeWidget {
+  Size get preferredSize => new Size.fromHeight(kToolbarHeight);
+  final String title;
+  final List<Widget> actions;
+  final Color colorBackground;
+  final Color colorFont;
+  AppBarNavigation({
+    this.title,
+    this.actions,
+    this.colorFont = Colors.black,
+    this.colorBackground = colorRojo,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      elevation: 5,
+      title: Text(
+        title,
+        style: TextStyle(
+          color: colorFont,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      backgroundColor: colorBackground,
+      actions: actions,
+    );
+  }
+}
+
+String numberFormat00(double x) {
+  List<String> parts = x.toString().split('.');
+  RegExp re = RegExp(r'\B(?=(\d{3})+(?!\d))');
+
+  parts[0] = parts[0].replaceAll(re, ',');
+  if (parts.length == 1) {
+    parts.add('00');
+  } else {
+    parts[1] = parts[1].padRight(2, '0').substring(0, 2);
+  }
+  return parts.join('.');
+}

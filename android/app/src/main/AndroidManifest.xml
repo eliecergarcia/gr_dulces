@@ -24,6 +24,8 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
+            <meta-data android:name="com.google.android.maps.v2.API_KEY"
+               android:value="AIzaSyB6wCedmo8lQT8ZCk5BS842aw4PmsBuMnM"/>
             <!-- Displays an Android View that continues showing the launch screen
                  Drawable until Flutter paints its first frame, then this splash
                  screen fades out. A splash screen is useful to avoid any visual

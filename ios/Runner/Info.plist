@@ -21,6 +21,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
+	
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -41,5 +42,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 </dict>
 </plist>
