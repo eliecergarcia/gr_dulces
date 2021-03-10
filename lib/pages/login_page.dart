@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quiero_dulces/block/provider.dart';
 import 'package:quiero_dulces/pages/categories_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,7 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool selectLogin = true;
-  final _auth =FirebaseApp.instance;
+  final _auth = FirebaseApp.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                (selectLogin) ? _columnSignup() : _columnLogin(),
+                (selectLogin) ? _columnSignup(context) : _columnLogin(context),
               ],
             ),
           ),
@@ -91,22 +94,46 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _textFieldEmail() {
-    return _textFieldGeneral(
-      labelText: 'Correo',
-      hintText: 'example@test.com',
-      keyboardType: TextInputType.emailAddress,
-      onChanged: (value) {},
-      icon: Icons.email_outlined,
-    );
+  Widget _textFieldEmail(LoginBloc bloc) {
+    return StreamBuilder(
+        stream: bloc.emailStream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: TextField(
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                  icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
+                  hintText: 'ejemplo@correo.com',
+                  labelText: 'Correo electrónico',
+                  //counterText: snapshot.data,
+                  errorText: snapshot.error),
+              onChanged: bloc.changeEmail,
+            ),
+          );
+        });
   }
 
-  Widget _textFieldPassword() {
-    return _textFieldGeneral(
-      labelText: 'Contraseña',
-      onChanged: (value) {},
-      icon: Icons.lock_outline_rounded,
-      obscureText: true,
+  Widget _textFieldPassword(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.passwordStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            obscureText: true,
+            decoration: InputDecoration(
+                icon: Icon(Icons.lock_outline, color: Colors.deepPurple),
+                labelText: 'Contraseña',
+                // counterText: snapshot.data,
+                errorText: snapshot.error),
+            onChanged: bloc.changePassword,
+            // onChanged: (value){
+            //   passwordUser = value;
+            // },
+          ),
+        );
+      },
     );
   }
 
@@ -141,7 +168,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _columnSignup() {
+  Widget _columnSignup(BuildContext context) {
+    final bloc = Provider.of(context);
     return Column(
       children: [
         SizedBox(
@@ -151,11 +179,11 @@ class _LoginPageState extends State<LoginPage> {
         SizedBox(
           height: 15.0,
         ),
-        _textFieldEmail(),
+        _textFieldEmail(bloc),
         SizedBox(
           height: 15.0,
         ),
-        _textFieldPassword(),
+        _textFieldPassword(bloc),
         SizedBox(
           height: 30.0,
         ),
@@ -164,13 +192,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _columnLogin() {
+  Widget _columnLogin(BuildContext context) {
+    final bloc = Provider.of(context);
     return Column(
       children: [
         SizedBox(
           height: 15.0,
         ),
-        _textFieldEmailLogin(),
+        _textFieldEmailLogin(bloc),
         SizedBox(
           height: 15.0,
         ),
@@ -194,13 +223,24 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _textFieldEmailLogin() {
-    return _textFieldGeneral(
-      labelText: 'Correo',
-      hintText: 'example@test.com',
-      keyboardType: TextInputType.emailAddress,
-      onChanged: (value) {},
-      icon: Icons.email_outlined,
+  Widget _textFieldEmailLogin(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.emailStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+                icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
+                hintText: 'ejemplo@correo.com',
+                labelText: 'Correo electrónico',
+                //counterText: snapshot.data,
+                errorText: snapshot.error),
+            onChanged: bloc.changeEmail,
+          ),
+        );
+      },
     );
   }
 
@@ -248,10 +288,72 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _addUser(){
-
+  void _addUser() {}
+  void _showEmptyTextField() {
+    if (Platform.isAndroid) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            elevation: 20.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: Text(
+              "No se  Permiten Campos Vacios",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            content: Text(
+              'Rellene todos los campos',
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              TextButton(
+                style: ButtonStyle(
+                  elevation:
+                      MaterialStateProperty.resolveWith((states) => 10.0),
+                  // backgroundColor: MaterialStateProperty.resolveWith(
+                  //   (states) => colorBlack,
+                  // ),
+                ),
+                onPressed: () => Navigator.pop(context),
+                child: Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      showCupertinoDialog(
+        context: context,
+        builder: (_) {
+          return CupertinoAlertDialog(
+            title: Text(
+              "No se  Permiten Campos Vacios",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            content: Text(
+              'Rellene todos los campos',
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Text('Ok'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
-
 }
 
 // ignore: camel_case_types
