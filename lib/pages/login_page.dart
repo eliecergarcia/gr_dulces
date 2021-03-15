@@ -225,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldEmailLogin(LoginBloc bloc) {
     return StreamBuilder(
-      stream: bloc.emailStream,
+      //stream: bloc.emailStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -237,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                 labelText: 'Correo electrónico',
                 //counterText: snapshot.data,
                 errorText: snapshot.error),
-            onChanged: bloc.changeEmail,
+            //onChanged: bloc.changeEmail,
           ),
         );
       },
