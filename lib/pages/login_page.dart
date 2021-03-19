@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = ProviderLogin.of(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xffFE0000),
@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                (selectLogin) ? _columnSignup(context) : _columnLogin(context),
+                (selectLogin) ? _columnSignup(bloc) : _columnLogin(bloc),
               ],
             ),
           ),
@@ -96,42 +96,28 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldEmail(LoginBloc bloc) {
     return StreamBuilder(
-        stream: bloc.emailStream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: TextField(
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                  icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
-                  hintText: 'ejemplo@correo.com',
-                  labelText: 'Correo electrónico',
-                  //counterText: snapshot.data,
-                  errorText: snapshot.error),
-              onChanged: bloc.changeEmail,
-            ),
-          );
-        });
+      stream: bloc.emailStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return _textFieldGeneral(
+          labelText: 'Correo',
+          hintText: 'Eduardo Garcia',
+          icon: Icons.email_outlined,
+          onChanged: bloc.changeEmail,
+        );
+      },
+    );
   }
 
   Widget _textFieldPassword(LoginBloc bloc) {
     return StreamBuilder(
       stream: bloc.passwordStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-                icon: Icon(Icons.lock_outline, color: Colors.deepPurple),
-                labelText: 'Contraseña',
-                // counterText: snapshot.data,
-                errorText: snapshot.error),
-            onChanged: bloc.changePassword,
-            // onChanged: (value){
-            //   passwordUser = value;
-            // },
-          ),
+        return _textFieldGeneral(
+          labelText: 'Contraseña',
+          icon: Icons.lock_outline_rounded,
+          obscureText: true,
+          onChanged: bloc.changePassword,
+          errorText: snapshot.error,
         );
       },
     );
@@ -168,8 +154,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _columnSignup(BuildContext context) {
-    final bloc = Provider.of(context);
+  Widget _columnSignup(LoginBloc bloc) {
     return Column(
       children: [
         SizedBox(
@@ -192,8 +177,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _columnLogin(BuildContext context) {
-    final bloc = Provider.of(context);
+  Widget _columnLogin(LoginBloc bloc) {
     return Column(
       children: [
         SizedBox(
@@ -203,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
         SizedBox(
           height: 15.0,
         ),
-        _textFieldPasswordLogin(),
+        _textFieldPasswordLogin(bloc),
         SizedBox(
           height: 25.0,
         ),
@@ -225,31 +209,31 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldEmailLogin(LoginBloc bloc) {
     return StreamBuilder(
-      //stream: bloc.emailStream,
+      stream: bloc.emailStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: TextField(
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-                icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
-                hintText: 'ejemplo@correo.com',
-                labelText: 'Correo electrónico',
-                //counterText: snapshot.data,
-                errorText: snapshot.error),
-            //onChanged: bloc.changeEmail,
-          ),
+        return _textFieldGeneral(
+          labelText: 'Correo',
+          hintText: 'ejemplo@correo.com',
+          icon: Icons.mail_outline,
+          onChanged: bloc.changeEmail,
+          errorText: snapshot.error,
         );
       },
     );
   }
 
-  Widget _textFieldPasswordLogin() {
-    return _textFieldGeneral(
-      labelText: 'Contraseña',
-      onChanged: (value) {},
-      icon: Icons.lock_outline_rounded,
-      obscureText: true,
+  Widget _textFieldPasswordLogin(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.emailStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return _textFieldGeneral(
+          labelText: 'Contraseña',
+          icon: Icons.lock_outline_rounded,
+          obscureText: true,
+          onChanged: bloc.changePassword,
+          errorText: snapshot.error,
+        );
+      },
     );
   }
 
@@ -288,7 +272,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _addUser() {}
+  //void _addUser() {}
   void _showEmptyTextField() {
     if (Platform.isAndroid) {
       showDialog(
@@ -364,6 +348,7 @@ class _textFieldGeneral extends StatelessWidget {
   final TextInputType keyboardType;
   final IconData icon;
   final bool obscureText;
+  final String errorText;
   const _textFieldGeneral({
     @required this.labelText,
     this.hintText,
@@ -371,6 +356,7 @@ class _textFieldGeneral extends StatelessWidget {
     this.keyboardType,
     this.icon,
     this.obscureText = false,
+    this.errorText,
   });
 
   @override
@@ -387,6 +373,7 @@ class _textFieldGeneral extends StatelessWidget {
         keyboardType: keyboardType,
         obscureText: obscureText,
         decoration: InputDecoration(
+          errorText: errorText,
           prefixIcon: Icon(icon),
           labelText: labelText,
           hintText: hintText,

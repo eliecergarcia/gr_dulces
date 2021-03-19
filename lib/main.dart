@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quiero_dulces/pages/cart_page.dart';
-import 'package:quiero_dulces/pages/categories_page.dart';
-import 'package:quiero_dulces/pages/category_selected.dart';
-import 'package:quiero_dulces/pages/coupons_page.dart';
-import 'package:quiero_dulces/pages/history_page.dart';
-import 'package:quiero_dulces/pages/login_page.dart';
-import 'package:quiero_dulces/pages/payment_method_page.dart';
+import 'package:quiero_dulces/block/provider.dart';
+import 'package:quiero_dulces/routes/routes.dart';
 
 import 'objects/cart_model.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -22,26 +18,20 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => CartModel()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: 'AvenirLTstd',
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          primaryIconTheme: IconThemeData(
-            color: Colors.white,
+      child: ProviderLogin(
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'AvenirLTstd',
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            primaryIconTheme: IconThemeData(
+              color: Colors.white,
+            ),
           ),
+          initialRoute: 'login_page',
+          routes: customRoutes,
         ),
-        initialRoute: LoginPage.id,
-        routes: {
-          LoginPage.id: (_) => LoginPage(),
-          CategoriesPage.id: (_) => CategoriesPage(),
-          CategorySelectedPage.id: (_) => CategorySelectedPage(""),
-          CarPage.id: (_) => CarPage(),
-          PaymentMethodPage.id: (_) => PaymentMethodPage(),
-          HistoryPage.id: (_) => HistoryPage(),
-          CouponsPage.id: (_) => CouponsPage(),
-        },
       ),
     );
   }

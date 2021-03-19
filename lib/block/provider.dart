@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'login_bloc.dart';
-export 'login_bloc.dart';
+import 'package:quiero_dulces/block/login_bloc.dart';
+export 'package:quiero_dulces/block/login_bloc.dart';
 
-class Provider extends InheritedWidget {
-  static Provider _instancia;
+class ProviderLogin extends InheritedWidget {
+  static ProviderLogin _instancia;
 
-  factory Provider({Key key, Widget child}) {
+  factory ProviderLogin({Key key, Widget child}) {
     if (_instancia == null) {
-      _instancia = new Provider._internal(key: key, child: child);
+      _instancia = new ProviderLogin._internal(key: key, child: child);
     }
 
     return _instancia;
   }
 
-  Provider._internal({Key key, Widget child}) : super(key: key, child: child);
+  ProviderLogin._internal({Key key, Widget child})
+      : super(key: key, child: child);
 
   final loginBloc = LoginBloc();
 
@@ -24,6 +25,8 @@ class Provider extends InheritedWidget {
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
   static LoginBloc of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<Provider>().loginBloc;
+    return context
+        .dependOnInheritedWidgetOfExactType<ProviderLogin>()
+        .loginBloc;
   }
 }

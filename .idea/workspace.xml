@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a23c0118-a7fe-4a1a-bea5-795fa58a5cdf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/categories_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/categories_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/login_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
