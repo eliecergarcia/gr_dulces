@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quiero_dulces/objects/cart_model.dart';
+import 'package:quiero_dulces/pages/all_products.dart';
 import 'package:quiero_dulces/pages/category_selected.dart';
 import 'package:quiero_dulces/widgets/bottom_navigation.dart';
 import 'package:quiero_dulces/widgets/constants.dart';
@@ -77,14 +78,19 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 height: size.height / 12,
                 color: colorRojo,
                 child: Center(
-                  child: Text(
-                    'Menú'.toUpperCase(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25.0,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AllProductsPage.id);
+                    },
+                    child: Text(
+                      'Menú'.toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.0,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -151,4 +157,3 @@ class _CategoriesPageState extends State<CategoriesPage> {
     );
   }
 }
-

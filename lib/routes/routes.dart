@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiero_dulces/pages/all_products.dart';
 import 'package:quiero_dulces/pages/cart_page.dart';
 import 'package:quiero_dulces/pages/categories_page.dart';
 import 'package:quiero_dulces/pages/category_selected.dart';
@@ -15,4 +16,5 @@ var customRoutes = <String, WidgetBuilder>{
   PaymentMethodPage.id: (_) => PaymentMethodPage(),
   HistoryPage.id: (_) => HistoryPage(),
   CouponsPage.id: (_) => CouponsPage(),
+  AllProductsPage.id: (_) => AllProductsPage(),
 };
