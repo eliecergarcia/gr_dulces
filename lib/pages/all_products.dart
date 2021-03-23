@@ -1,39 +1,31 @@
-import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quiero_dulces/objects/cart_model.dart';
 import 'package:quiero_dulces/objects/product.dart';
-import 'package:quiero_dulces/objects/product_card.dart';
 import 'package:quiero_dulces/widgets/constants.dart';
 import 'package:quiero_dulces/widgets/lateral_menu.dart';
 
 import 'cart_page.dart';
+import 'category_selected.dart';
 
-class CategorySelectedPage extends StatefulWidget {
-  static String id = 'category_selected';
-  final String category;
-  CategorySelectedPage(this.category);
+class AllProductsPage extends StatefulWidget {
+  static String id = 'all_products';
+
   @override
-  _CategorySelectedPageState createState() => _CategorySelectedPageState();
+  _AllProductsPageState createState() => _AllProductsPageState();
 }
 
-final productReference = FirebaseDatabase.instance.reference().child('dulces');
-
-class _CategorySelectedPageState extends State<CategorySelectedPage> {
-  TextEditingController _categoryController;
+class _AllProductsPageState extends State<AllProductsPage> {
   List<Product> items;
-  List<ProductCard> itemsCardProduct;
   StreamSubscription<Event> _onProductAddedSubscription;
   StreamSubscription<Event> _onProductChangeSubscription;
 
   @override
   void initState() {
     items = [];
-    itemsCardProduct = [];
-    _categoryController =
-        TextEditingController(text: widget.category.toString());
     _onProductAddedSubscription =
         productReference.onChildAdded.listen(_onProductAdded);
     _onProductChangeSubscription =
@@ -41,13 +33,10 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
     super.initState();
   }
 
-
-
   @override
   void dispose() {
     _onProductAddedSubscription.cancel();
     _onProductChangeSubscription.cancel();
-    _categoryController.dispose();
     super.dispose();
   }
 
@@ -55,6 +44,7 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
   Widget build(BuildContext context) {
     final carItems = Provider.of<CartModel>(context);
     return SafeArea(
+      bottom: true,
       child: Scaffold(
         drawer: LateralMenu(),
         body: CustomScrollView(
@@ -62,7 +52,7 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
             SliverAppBar(
               backgroundColor: colorRojo,
               title: Text(
-                '${_categoryController.text}'.toUpperCase(),
+                'productos'.toUpperCase(),
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                 ),
@@ -110,12 +100,8 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int position) {
-                  //addProductsToList();
-                  if (items[position].category == _categoryController.text) {
-                    return _cardProduct(position);
-                  }
-                  return SizedBox.shrink();
+                (BuildContext context, int i) {
+                  return _cardProduct(i);
                 },
                 childCount: items.length,
               ),
@@ -178,6 +164,9 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
             elevatedButtonAddCarItem(position),
             SizedBox(
               height: 10.0,
+            ),
+            Row(
+              children: [],
             ),
           ],
         ),

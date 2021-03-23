@@ -87,13 +87,43 @@ class _CarPageState extends State<CarPage> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                        Container(
-                          width: 500,
-                          height: 200,
-                          //color: Colors.red,
+                        Text(
+                          'Datos de la entrega'.toUpperCase(),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 10.0),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Domicilio',
+                              hintText: 'Isla raza 3030',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            onChanged: (value) {},
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 10.0),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Colonia',
+                              hintText: 'Jardines de la cruz',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            onChanged: (value) {},
+                          ),
                         ),
                         SizedBox(
                           height: 15.0,
