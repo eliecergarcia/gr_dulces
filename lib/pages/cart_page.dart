@@ -1,9 +1,12 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quiero_dulces/objects/cart_model.dart';
+import 'package:quiero_dulces/widgets/alert_dialog.dart';
 import 'package:quiero_dulces/widgets/constants.dart';
-import 'package:quiero_dulces/widgets/lateral_menu.dart';
 
 class CarPage extends StatefulWidget {
   static String id = "cart_page";
@@ -23,7 +26,6 @@ class _CarPageState extends State<CarPage> {
           title: "Orden",
           colorFont: Colors.white,
         ),
-        drawer: LateralMenu(),
         body: _itemsCardOrder(context),
       ),
     );
@@ -31,8 +33,13 @@ class _CarPageState extends State<CarPage> {
 
   Widget _itemsCardOrder(BuildContext context) {
     final carItems = Provider.of<CartModel>(context);
+    final String deliveryTotal = numberFormat00(delivery);
+    final String priceTotal = numberFormat00(carItems.totalPrice.toDouble());
+    final double total = double.parse(deliveryTotal) + double.parse(priceTotal);
+    final totalOrder = numberFormat00(total);
     return (carItems.products.length != 0)
         ? ListView.builder(
+            physics: BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             itemCount: carItems.products.length + 1,
             itemBuilder: (BuildContext context, int position) {
@@ -73,73 +80,96 @@ class _CarPageState extends State<CarPage> {
                   ),
                 );
               } else {
-                final String deliveryTotal = numberFormat00(delivery);
-                final String priceTotal =
-                    numberFormat00(carItems.totalPrice.toDouble());
-                final double total =
-                    double.parse(deliveryTotal) + double.parse(priceTotal);
-                final totalOrder = numberFormat00(total);
-                return Card(
-                  elevation: 10.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      7.5,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Datos de la entrega'.toUpperCase(),
-                          textAlign: TextAlign.left,
+                return Column(
+                  children: [
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      elevation: 5.0,
+                      child: ListTile(
+                        title: Text(
+                          'Metodo de Pago',
                           style: TextStyle(
-                            fontSize: 20.0,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0, vertical: 10.0),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Domicilio',
-                              hintText: 'Isla raza 3030',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                            onChanged: (value) {},
+                        trailing: IconButton(
+                          icon: Icon(
+                            FontAwesomeIcons.moneyBill,
+                            color: Colors.green,
                           ),
+                          onPressed: () {
+                            setState(() {
+                              _onlyMoney();
+                            });
+                          },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0, vertical: 10.0),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Colonia',
-                              hintText: 'Jardines de la cruz',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                            onChanged: (value) {},
-                          ),
+                      ),
+                    ),
+                    Card(
+                      elevation: 10.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          7.5,
                         ),
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
                           children: [
-                            _columnTitles(),
-                            _columnPrices(
-                                priceTotal, deliveryTotal, totalOrder),
+                            Text(
+                              'Datos de la entrega'.toUpperCase(),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 20.0,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15.0, vertical: 10.0),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  labelText: 'Domicilio',
+                                  hintText: 'Isla raza 3030',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                onChanged: (value) {},
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15.0, vertical: 10.0),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  labelText: 'Colonia',
+                                  hintText: 'Jardines de la cruz',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                onChanged: (value) {},
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _columnTitles(),
+                                _columnPrices(
+                                    priceTotal, deliveryTotal, totalOrder),
+                              ],
+                            ),
+                            _buttonMakeOrder(),
                           ],
                         ),
-                        _buttonMakeOrder(),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 );
               }
             },
@@ -228,14 +258,18 @@ class _CarPageState extends State<CarPage> {
       style: ButtonStyle(
         shape: MaterialStateProperty.resolveWith(
           (states) => RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(7.5),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
         elevation: MaterialStateProperty.resolveWith((states) => 10),
         backgroundColor:
             MaterialStateProperty.resolveWith((states) => colorBlack),
       ),
-      onPressed: () {},
+      onPressed: () {
+        setState(() {
+          _emptyFields();
+        });
+      },
       child: Text(
         'Realizar Pedido'.toUpperCase(),
         style: TextStyle(
@@ -244,5 +278,55 @@ class _CarPageState extends State<CarPage> {
         ),
       ),
     );
+  }
+
+  void _emptyFields() {
+    if (Platform.isAndroid) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertContent(
+            'Rellene todos los campos',
+            "No se permiten campos vacios",
+          );
+        },
+      );
+    } else {
+      showCupertinoDialog(
+        context: context,
+        builder: (_) {
+          return CupertinoDialogText(
+            context: context,
+            contentTitle: 'Rellene todos los campos',
+            textTitle: 'No se permiten campos vacios',
+          );
+        },
+      );
+    }
+  }
+
+  void _onlyMoney() {
+    if (Platform.isAndroid) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertContent(
+            'Solo se aceptan pagos con Efectivo',
+            'Disculpe las molestias',
+          );
+        },
+      );
+    } else {
+      showCupertinoDialog(
+        context: context,
+        builder: (_) {
+          return CupertinoDialogText(
+            context: context,
+            contentTitle: 'Disculpe las molestias',
+            textTitle: 'Solo se aceptan pagos con Efectivo',
+          );
+        },
+      );
+    }
   }
 }
