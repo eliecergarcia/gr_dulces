@@ -7,6 +7,7 @@ import 'package:quiero_dulces/pages/coupons_page.dart';
 import 'package:quiero_dulces/pages/history_page.dart';
 import 'package:quiero_dulces/pages/login_page.dart';
 import 'package:quiero_dulces/pages/payment_method_page.dart';
+import 'package:quiero_dulces/pages/search_page.dart';
 
 var customRoutes = <String, WidgetBuilder>{
   LoginPage.id: (context) => LoginPage(),
@@ -17,4 +18,5 @@ var customRoutes = <String, WidgetBuilder>{
   HistoryPage.id: (_) => HistoryPage(),
   CouponsPage.id: (_) => CouponsPage(),
   AllProductsPage.id: (_) => AllProductsPage(),
+  SearchPage.id: (_) => SearchPage(),
 };

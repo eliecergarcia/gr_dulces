@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quiero_dulces/block/provider.dart';
@@ -16,7 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool selectLogin = true;
-  final _auth = FirebaseApp.instance;
+  //final _auth = FirebaseApp.instance;
 
   @override
   Widget build(BuildContext context) {

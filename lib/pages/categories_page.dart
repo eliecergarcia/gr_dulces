@@ -70,7 +70,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
         ),
         drawer: LateralMenu(),
         body: SingleChildScrollView(
-          physics: ScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           child: Column(
             children: [
               Container(

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AlertContent extends StatelessWidget {
-  String titleText;
-  String contentText;
+  final String titleText;
+  final String contentText;
   AlertContent(this.contentText, this.titleText);
   @override
   Widget build(BuildContext context) {

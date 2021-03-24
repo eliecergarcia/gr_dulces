@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:quiero_dulces/pages/search_page.dart';
 import 'package:quiero_dulces/widgets/constants.dart';
 
 class MenuBottomNavigation extends StatefulWidget {
@@ -9,10 +10,10 @@ class MenuBottomNavigation extends StatefulWidget {
 
 class _MenuBottomNavigationState extends State<MenuBottomNavigation> {
   int number = 0;
-  void _onItemTapped(int index) {
+  void _onTap(int index) {
     setState(() {
-      print('$index');
       number = index;
+      //Navigator.pushNamed(context, SearchPage.id);
     });
   }
 
@@ -22,7 +23,9 @@ class _MenuBottomNavigationState extends State<MenuBottomNavigation> {
       selectedItemColor: colorRojo,
       unselectedItemColor: colorBlack,
       currentIndex: number,
-      onTap: _onItemTapped,
+      onTap: (int index) {
+        _onTap(index);
+      },
       items: [
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.home),

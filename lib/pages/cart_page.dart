@@ -122,7 +122,8 @@ class _CarPageState extends State<CarPage> {
                               'Datos de la entrega'.toUpperCase(),
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                fontSize: 20.0,
+                                fontSize: 22.0,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                             Padding(

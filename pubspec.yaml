@@ -29,6 +29,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   font_awesome_flutter:
   rxdart:
+  custom_navigator:
   provider:
   firebase_core:
   google_maps_flutter:
