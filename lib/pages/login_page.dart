@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:quiero_dulces/block/provider.dart';
 import 'package:quiero_dulces/pages/categories_page.dart';
 import 'package:quiero_dulces/widgets/alert_dialog.dart';
+import 'package:quiero_dulces/widgets/bottom_navigation.dart';
 
 class LoginPage extends StatefulWidget {
   static String id = "login_page";
@@ -265,7 +266,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       onPressed: () {
         setState(() {
-          Navigator.pushNamed(context, CategoriesPage.id);
+          Navigator.pushNamed(context, MenuBottomNavigation.id);
         });
       },
     );

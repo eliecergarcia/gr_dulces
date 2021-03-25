@@ -117,7 +117,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
             ],
           ),
         ),
-        bottomNavigationBar: MenuBottomNavigation(),
       ),
     );
   }
