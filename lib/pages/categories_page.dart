@@ -22,100 +22,97 @@ class _CategoriesPageState extends State<CategoriesPage> {
   Widget build(BuildContext context) {
     final carItems = Provider.of<CartModel>(context);
     final size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 15.0),
-              child: Stack(
-                children: [
-                  IconButton(
-                    icon: Icon(FontAwesomeIcons.cartPlus),
-                    onPressed: () {
-                      setState(
-                        () {
-                          Navigator.pushNamed(context, CarPage.id);
-                        },
-                      );
-                    },
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Container(
-                      child: Text(
-                        '${carItems.products.length}',
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.black,
-                          fontFamily: 'Impact',
-                        ),
-                      ),
-                      alignment: Alignment.center,
-                      width: 20,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: Stack(
+              children: [
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.cartPlus),
+                  onPressed: () {
+                    setState(
+                      () {
+                        Navigator.pushNamed(context, CarPage.id);
+                      },
+                    );
+                  },
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    child: Text(
+                      '${carItems.products.length}',
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: Colors.black,
+                        fontFamily: 'Impact',
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-          backgroundColor: colorRojo,
-        ),
-        drawer: LateralMenu(),
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: size.height / 12,
-                color: colorRojo,
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, AllProductsPage.id);
-                    },
-                    child: Text(
-                      'Menú'.toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25.0,
-                      ),
-                      textAlign: TextAlign.center,
+                    alignment: Alignment.center,
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
                     ),
                   ),
                 ),
-              ),
-              gestureDetectorCategory(
-                  size, "Chocolates", Colors.white, colorRojo, () {
-                navigateCategory('Chocolates');
-              }),
-              gestureDetectorCategory(size, 'paletas', colorRojo, Colors.white,
-                  () {
-                navigateCategory('paletas');
-              }),
-              gestureDetectorCategory(
-                  size, 'con chile', Colors.white, colorRojo, () {
-                navigateCategory('con chile');
-              }),
-              gestureDetectorCategory(size, 'Bolis', colorRojo, Colors.white,
-                  () {
-                navigateCategory('bolis');
-              }),
-              gestureDetectorCategory(size, 'botana', Colors.white, colorRojo,
-                  () {
-                navigateCategory('botana');
-              }),
-            ],
+              ],
+            ),
           ),
+        ],
+        backgroundColor: colorRojo,
+      ),
+      drawer: LateralMenu(),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: size.height / 12,
+              color: colorRojo,
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, AllProductsPage.id);
+                  },
+                  child: Text(
+                    'Menú'.toUpperCase(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+            gestureDetectorCategory(size, "Chocolates", Colors.white, colorRojo,
+                () {
+              navigateCategory('Chocolates');
+            }),
+            gestureDetectorCategory(size, 'paletas', colorRojo, Colors.white,
+                () {
+              navigateCategory('paletas');
+            }),
+            gestureDetectorCategory(size, 'con chile', Colors.white, colorRojo,
+                () {
+              navigateCategory('con chile');
+            }),
+            gestureDetectorCategory(size, 'Bolis', colorRojo, Colors.white, () {
+              navigateCategory('bolis');
+            }),
+            gestureDetectorCategory(size, 'botana', Colors.white, colorRojo,
+                () {
+              navigateCategory('botana');
+            }),
+          ],
         ),
       ),
     );

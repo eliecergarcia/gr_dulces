@@ -7,15 +7,13 @@ class SearchPage extends StatelessWidget {
   static String id = 'search_page';
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: colorRojo,
-        ),
-        drawer: LateralMenu(),
-        body: Center(
-          child: Text('data'),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: colorRojo,
+      ),
+      drawer: LateralMenu(),
+      body: Center(
+        child: Text('Buscar'),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:quiero_dulces/pages/categories_page.dart';
 import 'package:quiero_dulces/pages/coupons_page.dart';
 import 'package:quiero_dulces/pages/history_page.dart';
 import 'package:quiero_dulces/pages/payment_method_page.dart';
+import 'package:quiero_dulces/widgets/bottom_navigation.dart';
 
 import 'constants.dart';
 
@@ -54,7 +55,7 @@ class _LateralMenuState extends State<LateralMenu> {
             text: 'Categorias',
             function: () => Navigator.pushNamed(
               context,
-              CategoriesPage.id,
+              MenuBottomNavigation.id,
             ),
           ),
           ListTileMenu(
