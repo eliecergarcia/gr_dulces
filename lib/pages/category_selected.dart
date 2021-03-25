@@ -41,8 +41,6 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
     super.initState();
   }
 
-
-
   @override
   void dispose() {
     _onProductAddedSubscription.cancel();
@@ -58,6 +56,7 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
       child: Scaffold(
         drawer: LateralMenu(),
         body: CustomScrollView(
+          physics: BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
               backgroundColor: colorRojo,
@@ -85,21 +84,30 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
                       Positioned(
                         top: 0,
                         right: 0,
-                        child: Container(
-                          child: Text(
-                            '${carItems.products.length}',
-                            style: TextStyle(
-                              fontSize: 17,
-                              color: Colors.black,
-                              fontFamily: 'Impact',
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(
+                              () {
+                                Navigator.pushNamed(context, CarPage.id);
+                              },
+                            );
+                          },
+                          child: Container(
+                            child: Text(
+                              '${carItems.products.length}',
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: Colors.black,
+                                fontFamily: 'Impact',
+                              ),
                             ),
-                          ),
-                          alignment: Alignment.center,
-                          width: 20,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
+                            alignment: Alignment.center,
+                            width: 20,
+                            height: 20,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
                       ),

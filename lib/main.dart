@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quiero_dulces/block/provider.dart';
+import 'package:quiero_dulces/pages/login_page.dart';
 import 'package:quiero_dulces/routes/routes.dart';
 
 import 'objects/cart_model.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() {
   runApp(MyApp());
 }
 
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          initialRoute: 'login_page',
+          initialRoute: LoginPage.id,
           routes: customRoutes,
         ),
       ),

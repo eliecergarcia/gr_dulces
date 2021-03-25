@@ -1,10 +1,10 @@
 import 'dart:io';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quiero_dulces/block/provider.dart';
 import 'package:quiero_dulces/pages/categories_page.dart';
+import 'package:quiero_dulces/widgets/alert_dialog.dart';
+import 'package:quiero_dulces/widgets/bottom_navigation.dart';
 
 class LoginPage extends StatefulWidget {
   static String id = "login_page";
@@ -15,7 +15,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool selectLogin = true;
-  final _auth = FirebaseApp.instance;
+  //final _auth = FirebaseApp.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -266,7 +266,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       onPressed: () {
         setState(() {
-          Navigator.pushNamed(context, CategoriesPage.id);
+          Navigator.pushNamed(context, MenuBottomNavigation.id);
         });
       },
     );
@@ -278,35 +278,9 @@ class _LoginPageState extends State<LoginPage> {
       showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            elevation: 20.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: Text(
-              "No se  Permiten Campos Vacios",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            content: Text(
-              'Rellene todos los campos',
-              textAlign: TextAlign.center,
-            ),
-            actions: [
-              TextButton(
-                style: ButtonStyle(
-                  elevation:
-                      MaterialStateProperty.resolveWith((states) => 10.0),
-                  // backgroundColor: MaterialStateProperty.resolveWith(
-                  //   (states) => colorBlack,
-                  // ),
-                ),
-                onPressed: () => Navigator.pop(context),
-                child: Text('Ok'),
-              ),
-            ],
+          return AlertContent(
+            'Rellene todos los campos',
+            "No se permiten campos vacios",
           );
         },
       );
@@ -314,25 +288,10 @@ class _LoginPageState extends State<LoginPage> {
       showCupertinoDialog(
         context: context,
         builder: (_) {
-          return CupertinoAlertDialog(
-            title: Text(
-              "No se  Permiten Campos Vacios",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            content: Text(
-              'Rellene todos los campos',
-              textAlign: TextAlign.center,
-            ),
-            actions: [
-              CupertinoDialogAction(
-                isDefaultAction: true,
-                child: Text('Ok'),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
+          return CupertinoDialogText(
+            context: context,
+            contentTitle: 'Rellene todos los campos',
+            textTitle: 'No se permiten campos vacios',
           );
         },
       );
