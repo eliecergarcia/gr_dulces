@@ -35,6 +35,7 @@ class _AllProductsPageState extends State<AllProductsPage> {
 
   @override
   void dispose() {
+    items.clear();
     _onProductAddedSubscription.cancel();
     _onProductChangeSubscription.cancel();
     super.dispose();

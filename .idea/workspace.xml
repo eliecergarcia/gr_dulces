@@ -6,7 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="a23c0118-a7fe-4a1a-bea5-795fa58a5cdf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/bottom_navigation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/bottom_navigation.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/all_products.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/all_products.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/cart_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/cart_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/categories_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/categories_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/category_selected.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/category_selected.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/login_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/order_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/order_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/search_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/search_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/lateral_menu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/lateral_menu.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,10 +73,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="269" y="168" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1616245877661" />
-    <state x="93" y="93" width="1350" height="678" key="AVDManager" timestamp="1616630964627">
+    <state x="93" y="93" width="1350" height="678" key="AVDManager" timestamp="1617757503783">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="93" y="93" width="1350" height="678" key="AVDManager/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1616630964627" />
+    <state x="93" y="93" width="1350" height="678" key="AVDManager/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1617757503783" />
     <state x="586" y="179" key="AndroidProcessChooserDialog" timestamp="1616450951963">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -78,22 +85,22 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="395" y="1" key="CommitChangelistDialog2/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1616629329813" />
-    <state width="1491" height="175" key="GridCell.Tab.0.bottom" timestamp="1616630972701">
+    <state width="1491" height="184" key="GridCell.Tab.0.bottom" timestamp="1617759875687">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1491" height="175" key="GridCell.Tab.0.bottom/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1616630972701" />
-    <state width="1491" height="175" key="GridCell.Tab.0.center" timestamp="1616630972701">
+    <state width="1491" height="184" key="GridCell.Tab.0.bottom/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1617759875687" />
+    <state width="1491" height="184" key="GridCell.Tab.0.center" timestamp="1617759875687">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1491" height="175" key="GridCell.Tab.0.center/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1616630972701" />
-    <state width="1491" height="175" key="GridCell.Tab.0.left" timestamp="1616630972701">
+    <state width="1491" height="184" key="GridCell.Tab.0.center/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1617759875687" />
+    <state width="1491" height="184" key="GridCell.Tab.0.left" timestamp="1617759875687">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1491" height="175" key="GridCell.Tab.0.left/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1616630972701" />
-    <state width="1491" height="175" key="GridCell.Tab.0.right" timestamp="1616630972701">
+    <state width="1491" height="184" key="GridCell.Tab.0.left/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1617759875687" />
+    <state width="1491" height="184" key="GridCell.Tab.0.right" timestamp="1617759875687">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1491" height="175" key="GridCell.Tab.0.right/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1616630972701" />
+    <state width="1491" height="184" key="GridCell.Tab.0.right/0.0.1536.864/-1366.0.1366.768@0.0.1536.864" timestamp="1617759875687" />
     <state x="277" y="77" key="SettingsEditor" timestamp="1616435940273">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

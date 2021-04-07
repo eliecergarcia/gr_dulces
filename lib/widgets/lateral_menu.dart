@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quiero_dulces/pages/categories_page.dart';
 import 'package:quiero_dulces/pages/coupons_page.dart';
 import 'package:quiero_dulces/pages/history_page.dart';
 import 'package:quiero_dulces/pages/payment_method_page.dart';

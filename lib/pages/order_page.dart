@@ -75,7 +75,7 @@ class _OrderPageState extends State<OrderPage> {
       ),
       drawer: LateralMenu(),
       body: Center(
-        child: Text('Ordenes'),
+        child: Text('No has realizado ningun \n pedido hasta el momento'),
       ),
     );
   }

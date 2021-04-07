@@ -1,11 +1,15 @@
+
 import 'dart:io';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quiero_dulces/objects/cart_model.dart';
+import 'package:quiero_dulces/objects/product.dart';
 import 'package:quiero_dulces/widgets/alert_dialog.dart';
+import 'package:quiero_dulces/widgets/bottom_navigation.dart';
 import 'package:quiero_dulces/widgets/constants.dart';
 
 class CarPage extends StatefulWidget {
@@ -16,6 +20,10 @@ class CarPage extends StatefulWidget {
 }
 
 class _CarPageState extends State<CarPage> {
+  final productReference = FirebaseDatabase.instance.reference().child('order');
+  String street;
+  String colony;
+  int totalFirebase = 0;
   static const double delivery = 20.00;
   @override
   Widget build(BuildContext context) {
@@ -37,6 +45,7 @@ class _CarPageState extends State<CarPage> {
     final String priceTotal = numberFormat00(carItems.totalPrice.toDouble());
     final double total = double.parse(deliveryTotal) + double.parse(priceTotal);
     final totalOrder = numberFormat00(total);
+    totalFirebase = total.toInt();
     return (carItems.products.length != 0)
         ? ListView.builder(
             physics: BouncingScrollPhysics(),
@@ -137,7 +146,9 @@ class _CarPageState extends State<CarPage> {
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                 ),
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  street = value;
+                                },
                               ),
                             ),
                             Padding(
@@ -151,7 +162,9 @@ class _CarPageState extends State<CarPage> {
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                 ),
-                                onChanged: (value) {},
+                                onChanged: (value) {
+                                  colony = value;
+                                },
                               ),
                             ),
                             SizedBox(
@@ -255,6 +268,7 @@ class _CarPageState extends State<CarPage> {
   }
 
   Widget _buttonMakeOrder() {
+    final carItems = Provider.of<CartModel>(context);
     return ElevatedButton(
       style: ButtonStyle(
         shape: MaterialStateProperty.resolveWith(
@@ -268,7 +282,31 @@ class _CarPageState extends State<CarPage> {
       ),
       onPressed: () {
         setState(() {
-          _emptyFields();
+          String items =" ";
+          for(int i=0; i<carItems.products.length;i++){
+            items =  items +(",") + carItems.products[i].name;
+          }
+          if (street == null || colony == null) {
+            _emptyFields();
+          } else {
+            try {
+              productReference.push().set({
+                'client-name': 'absalon garcia',
+                'product-order': items,
+                'total': totalFirebase,
+                'street': street,
+                'cologne': colony,
+                'phone-number': 3333333,
+              }).then(
+                (_) {
+                  carItems.removeAll();
+                  Navigator.pushNamed(context, MenuBottomNavigation.id);
+                }
+              );
+            } catch (e) {
+              print("error");
+            }
+          }
         });
       },
       child: Text(

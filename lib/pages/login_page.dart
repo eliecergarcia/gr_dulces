@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quiero_dulces/block/provider.dart';
-import 'package:quiero_dulces/pages/categories_page.dart';
 import 'package:quiero_dulces/widgets/alert_dialog.dart';
 import 'package:quiero_dulces/widgets/bottom_navigation.dart';
 

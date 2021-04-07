@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:quiero_dulces/objects/cart_model.dart';
 import 'package:quiero_dulces/pages/all_products.dart';
 import 'package:quiero_dulces/pages/category_selected.dart';
-import 'package:quiero_dulces/widgets/bottom_navigation.dart';
 import 'package:quiero_dulces/widgets/constants.dart';
 import 'package:quiero_dulces/widgets/lateral_menu.dart';
 
