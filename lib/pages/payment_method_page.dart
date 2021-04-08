@@ -10,7 +10,7 @@ class PaymentMethodPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBarNavigation(
-          title: 'Tus Métodos de Pago',
+          title: 'Métodos de Pago',
           colorFont: Colors.white,
           colorBackground: colorRojo,
         ),
@@ -21,17 +21,83 @@ class PaymentMethodPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildCreditCard(
-                  Color(0xFF090943),
-                  "3546 7532 XXXX 9742",
-                  "HOUSSEM SELMI",
-                  "08/2022",
+                // _buildCreditCard(
+                //   Color(0xFF090943),
+                //   "3546 7532 XXXX 9742",
+                //   "HOUSSEM SELMI",
+                //   "08/2022",
+                // ),
+                Text(
+                  'El vendedor acepta las siguientes formas de pago:',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.credit_card_rounded,
+                      color: colorRojo,
+                      size: 30,
+                    ),
+                    title: Text(
+                      'Pago con Tarjeta',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    leading: Icon(
+                      FontAwesomeIcons.moneyBill,
+                      color: colorRojo,
+                      size: 30,
+                    ),
+                    title: Text(
+                      'Pago con Efectivo',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    leading: Icon(
+                      FontAwesomeIcons.piggyBank,
+                      color: colorRojo,
+                      size: 30,
+                    ),
+                    title: Text(
+                      'Transferencia Bancaria',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    leading: Icon(
+                      FontAwesomeIcons.bitcoin,
+                      color: colorRojo,
+                      size: 30,
+                    ),
+                    title: Text(
+                      'Pago con CriptoMonedas',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
         ),
-        floatingActionButton: _addPaymentMethod(),
+        //floatingActionButton: _addPaymentMethod(),
       ),
     );
   }

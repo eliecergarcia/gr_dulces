@@ -150,6 +150,7 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
   }
 
   Widget _cardProduct(int position) {
+    final String priceTotal = numberFormat00(items[position].price.toDouble());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: Card(
@@ -180,10 +181,16 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
                 containerImgItem(),
               ],
             ),
+            Text(
+              "Precio \$$priceTotal",
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
             SizedBox(
               height: 10.0,
             ),
-            elevatedButtonAddCarItem(position),
+            //elevatedButtonAddCarItem(position),
             SizedBox(
               height: 10.0,
             ),
@@ -218,7 +225,6 @@ class _CategorySelectedPageState extends State<CategorySelectedPage> {
             (states) => Colors.redAccent),
       ),
       onPressed: () {
-        print("agregado");
         setState(() {
           carItems.add(items[position]);
         });

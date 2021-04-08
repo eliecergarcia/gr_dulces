@@ -37,11 +37,6 @@ class _LateralMenuState extends State<LateralMenu> {
                 color: colorRojo,
               ),
               title: Text('Cerrar Sesion'),
-              trailing: Switch.adaptive(
-                value: true,
-                activeColor: colorRojo,
-                onChanged: (value) {},
-              ),
             ),
           ],
         ),

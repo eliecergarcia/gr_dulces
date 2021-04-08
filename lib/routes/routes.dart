@@ -43,6 +43,7 @@ class _Route {
 }
 
 final drawerRoutes = <_Route>[
+  _Route(FontAwesomeIcons.candyCane, MenuBottomNavigation(), 'Categorias'),
   _Route(FontAwesomeIcons.creditCard, PaymentMethodPage(), "Método de Pago"),
   _Route(FontAwesomeIcons.ticketAlt, CouponsPage(), "Cupones"),
 ];
