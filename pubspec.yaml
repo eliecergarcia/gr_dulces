@@ -31,17 +31,23 @@ dependencies:
   rxdart:
   custom_navigator:
   provider:
-  firebase_core:
+  firebase_core: ^1.0.3
   google_maps_flutter:
   flutter_boxicons:
-  animated_text_kit: ^2.0.0
+  animated_text_kit:
   modal_progress_hud:
   firebase_auth:
   firebase_database:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons:
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/logodulces.png"
+  adaptive_icon_background: "assets/icon/logodulces.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

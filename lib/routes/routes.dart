@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quiero_dulces/pages/all_products.dart';
 import 'package:quiero_dulces/pages/cart_page.dart';
 import 'package:quiero_dulces/pages/categories_page.dart';
@@ -28,3 +29,21 @@ var customRoutes = <String, WidgetBuilder>{
   OrderPage.id: (_) => OrderPage(),
   DiscountPage.id: (_) => DiscountPage(),
 };
+
+class _Route {
+  final IconData icon;
+  final String titulo;
+  final Widget page;
+
+  _Route(
+    this.icon,
+    this.page,
+    this.titulo,
+  );
+}
+
+final drawerRoutes = <_Route>[
+  _Route(FontAwesomeIcons.candyCane, MenuBottomNavigation(), 'Categorias'),
+  _Route(FontAwesomeIcons.creditCard, PaymentMethodPage(), "Método de Pago"),
+  _Route(FontAwesomeIcons.ticketAlt, CouponsPage(), "Cupones"),
+];

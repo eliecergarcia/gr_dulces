@@ -8,6 +8,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:249630243767:android:f7619e2985411e4da70632",
+        "android_client_info": {
+          "package_name": "com.eliecercoding.quiero_dulces"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "249630243767-746tbiiikurmku722sqj2jegnrkbl80d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeEprqkyAXCvhuaGxGwYTMHXJ2ewxG5ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "249630243767-746tbiiikurmku722sqj2jegnrkbl80d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:249630243767:android:0c6a0e4b970b1694a70632",
         "android_client_info": {
           "package_name": "com.example.gr_dulces_admin"

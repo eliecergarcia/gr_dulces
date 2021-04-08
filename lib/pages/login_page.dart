@@ -1,8 +1,10 @@
 import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:quiero_dulces/block/provider.dart';
-import 'package:quiero_dulces/pages/categories_page.dart';
 import 'package:quiero_dulces/widgets/alert_dialog.dart';
 import 'package:quiero_dulces/widgets/bottom_navigation.dart';
 
@@ -15,7 +17,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool selectLogin = true;
-  //final _auth = FirebaseApp.instance;
+  bool showSpinner = false;
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -23,61 +26,64 @@ class _LoginPageState extends State<LoginPage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xffFE0000),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Quiero \nDulces".toUpperCase(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 55,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Impact',
+        body: ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Quiero \nDulces".toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 55,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Impact',
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 35.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectLogin = true;
-                        });
-                      },
-                      child: const Text(
-                        'Registrate',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
+                  SizedBox(
+                    height: 35.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectLogin = true;
+                          });
+                        },
+                        child: const Text(
+                          'Inicia Sesion',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectLogin = false;
-                        });
-                      },
-                      child: const Text(
-                        'Inicia Sesion',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectLogin = false;
+                          });
+                        },
+                        child: const Text(
+                          'Registrate',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                (selectLogin) ? _columnSignup(bloc) : _columnLogin(bloc),
-              ],
+                    ],
+                  ),
+                  (selectLogin) ? _columnLogin(bloc) : _columnSignup(bloc),
+                ],
+              ),
             ),
           ),
         ),
@@ -85,24 +91,25 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _textFieldName() {
-    return _textFieldGeneral(
-      labelText: 'Nombre',
-      hintText: 'Eduardo Garcia',
-      icon: Icons.person_outline,
-      onChanged: (value) {},
-    );
-  }
+  // Widget _textFieldName() {
+  //   return _textFieldGeneral(
+  //     labelText: 'Nombre',
+  //     hintText: 'Eduardo Garcia',
+  //     icon: Icons.person_outline,
+  //     onChanged: (value) {},
+  //   );
+  // }
 
   Widget _textFieldEmail(LoginBloc bloc) {
     return StreamBuilder(
-      stream: bloc.emailStream,
+      stream: bloc.emailSignUp,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return _textFieldGeneral(
           labelText: 'Correo',
           hintText: 'Eduardo Garcia',
           icon: Icons.email_outlined,
-          onChanged: bloc.changeEmail,
+          onChanged: bloc.changeMailSignUp,
+          errorText: snapshot.error,
         );
       },
     );
@@ -110,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldPassword(LoginBloc bloc) {
     return StreamBuilder(
-      stream: bloc.passwordStream,
+      stream: bloc.passwordSignUpStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return _textFieldGeneral(
           labelText: 'Contraseña',
@@ -123,7 +130,22 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buttonSignUp() {
+  Widget _textFieldPasswordSign(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.rePasswordSignUpStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return _textFieldGeneral(
+          labelText: 'Reingresa la Contraseña',
+          icon: Icons.lock_outline_rounded,
+          obscureText: true,
+          onChanged: bloc.changeRePasswordSignUp,
+          errorText: snapshot.error,
+        );
+      },
+    );
+  }
+
+  Widget _buttonSignUp(LoginBloc bloc) {
     return TextButton(
       style: ButtonStyle(
         elevation: MaterialStateProperty.all(10),
@@ -150,17 +172,43 @@ class _LoginPageState extends State<LoginPage> {
           fontSize: 20.0,
         ),
       ),
-      onPressed: () {},
+      onPressed: () async {
+        print("${bloc.emailSign} y ${bloc.rePasswordSign}");
+        setState(() {
+          showSpinner = true;
+        });
+        if (bloc.emailSign == null) {
+          _showEmptyTextField();
+          showSpinner = false;
+        } else if (bloc.rePasswordSign == null) {
+          _showEmptyTextField();
+          showSpinner = false;
+        } else {
+          try {
+            final user = await _auth.createUserWithEmailAndPassword(
+              email: bloc.emailSign,
+              password: bloc.rePasswordSign,
+            );
+            if (user != null) {
+              showSpinner = false;
+              _addUser();
+            }
+            setState(() {
+              showSpinner = false;
+            });
+          } catch (e) {}
+        }
+      },
     );
   }
 
   Widget _columnSignup(LoginBloc bloc) {
     return Column(
       children: [
-        SizedBox(
-          height: 25.0,
-        ),
-        _textFieldName(),
+        // SizedBox(
+        //   height: 25.0,
+        // ),
+        // _textFieldName(),
         SizedBox(
           height: 15.0,
         ),
@@ -170,9 +218,13 @@ class _LoginPageState extends State<LoginPage> {
         ),
         _textFieldPassword(bloc),
         SizedBox(
+          height: 15.0,
+        ),
+        _textFieldPasswordSign(bloc),
+        SizedBox(
           height: 30.0,
         ),
-        _buttonSignUp(),
+        _buttonSignUp(bloc),
       ],
     );
   }
@@ -202,7 +254,7 @@ class _LoginPageState extends State<LoginPage> {
         SizedBox(
           height: 65.0,
         ),
-        _buttonLogin(),
+        _buttonLogin(bloc),
       ],
     );
   }
@@ -224,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldPasswordLogin(LoginBloc bloc) {
     return StreamBuilder(
-      stream: bloc.emailStream,
+      stream: bloc.passwordStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return _textFieldGeneral(
           labelText: 'Contraseña',
@@ -237,7 +289,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buttonLogin() {
+  Widget _buttonLogin(LoginBloc bloc) {
     return ElevatedButton(
       style: ButtonStyle(
         elevation: MaterialStateProperty.resolveWith<double>(
@@ -264,15 +316,89 @@ class _LoginPageState extends State<LoginPage> {
           fontWeight: FontWeight.w700,
         ),
       ),
-      onPressed: () {
-        setState(() {
-          Navigator.pushNamed(context, MenuBottomNavigation.id);
-        });
+      onPressed: () async {
+        if (bloc.password == null || bloc.email == null) {
+          _showEmptyTextField();
+          setState(() {
+            showSpinner = false;
+          });
+        } else if (bloc.password != null && bloc.email != null) {
+          setState(() {
+            showSpinner = true;
+          });
+          try {
+            // prefs.email = bloc.email;
+            // prefs.password = bloc.password;
+            final user = await _auth.signInWithEmailAndPassword(
+                email: bloc.email, password: bloc.password);
+            if (user != null) {
+              Navigator.pushNamed(context, MenuBottomNavigation.id);
+            }
+            setState(() {
+              showSpinner = false;
+            });
+          } catch (e) {
+            //print('$e');
+            _errorLogin();
+            setState(() {
+              showSpinner = false;
+            });
+          }
+        }
       },
     );
   }
 
-  //void _addUser() {}
+  void _errorLogin() {
+    if (Platform.isAndroid) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertContent(
+            'Error al Ingresar',
+            'Vuelva a intentarlo',
+          );
+        },
+      );
+    } else {
+      showCupertinoDialog(
+        context: context,
+        builder: (_) {
+          return CupertinoDialogText(
+            context: context,
+            contentTitle: 'Error al Ingresar',
+            textTitle: 'Vuelva a intentarlo',
+          );
+        },
+      );
+    }
+  }
+
+  void _addUser() {
+    if (Platform.isAndroid) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertContent(
+            'Te registraste de manera Exitosa',
+            "Bienvenido!",
+          );
+        },
+      );
+    } else {
+      showCupertinoDialog(
+        context: context,
+        builder: (_) {
+          return CupertinoDialogText(
+            context: context,
+            contentTitle: 'Te registraste de manera Exitosa',
+            textTitle: 'Bienvenido!',
+          );
+        },
+      );
+    }
+  }
+
   void _showEmptyTextField() {
     if (Platform.isAndroid) {
       showDialog(

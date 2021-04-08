@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quiero_dulces/pages/categories_page.dart';
-import 'package:quiero_dulces/pages/coupons_page.dart';
-import 'package:quiero_dulces/pages/history_page.dart';
-import 'package:quiero_dulces/pages/payment_method_page.dart';
+
+import 'package:quiero_dulces/routes/routes.dart';
 
 import 'constants.dart';
 
@@ -20,68 +17,59 @@ class _LateralMenuState extends State<LateralMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      elevation: 20.0,
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            duration: Duration(
-              milliseconds: 50,
+      child: Container(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              width: double.infinity,
+              height: 200,
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/img/logodulces.png'),
+              ),
             ),
-            decoration: BoxDecoration(
-              color: colorRojo,
+            Expanded(
+              child: _ListaOpciones(),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                  child: Text(
-                    'Quiero \nDulces'.toUpperCase(),
-                    style: TextStyle(
-                      fontSize: 40.0,
-                      //fontWeight: FontWeight.w600,
-                      fontFamily: 'Impact',
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
+            ListTile(
+              leading: Icon(
+                Icons.lock_outlined,
+                color: colorRojo,
+              ),
+              title: Text('Cerrar Sesion'),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ListaOpciones extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ListView.separated(
+        physics: BouncingScrollPhysics(),
+        separatorBuilder: (context, i) => Divider(
+          color: Colors.blue,
+        ),
+        itemCount: drawerRoutes.length,
+        itemBuilder: (context, i) => ListTile(
+          title: Text('${drawerRoutes[i].titulo}'),
+          leading: Icon(
+            drawerRoutes[i].icon,
+            color: colorRojo,
           ),
-          ListTileMenu(
-            icon: FontAwesomeIcons.candyCane,
-            text: 'Categorias',
-            function: () => Navigator.pushNamed(
+          onTap: () {
+            Navigator.push(
               context,
-              CategoriesPage.id,
-            ),
-          ),
-          ListTileMenu(
-            icon: FontAwesomeIcons.wallet,
-            text: 'Método de Pago',
-            function: () => Navigator.pushNamed(
-              context,
-              PaymentMethodPage.id,
-            ),
-          ),
-          ListTileMenu(
-            icon: FontAwesomeIcons.receipt,
-            text: "Mis Pedidos",
-            function: () => Navigator.pushNamed(
-              context,
-              HistoryPage.id,
-            ),
-          ),
-          ListTileMenu(
-            icon: FontAwesomeIcons.percentage,
-            text: "Cupones",
-            function: () => Navigator.pushNamed(
-              context,
-              CouponsPage.id,
-            ),
-          ),
-        ],
+              MaterialPageRoute(
+                builder: (context) => drawerRoutes[i].page,
+              ),
+            );
+          },
+        ),
       ),
     );
   }
