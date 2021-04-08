@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                           });
                         },
                         child: const Text(
-                          'Registrate',
+                          'Inicia Sesion',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 25.0,
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                           });
                         },
                         child: const Text(
-                          'Inicia Sesion',
+                          'Registrate',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 25.0,
@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                  (selectLogin) ? _columnSignup(bloc) : _columnLogin(bloc),
+                  (selectLogin) ? _columnLogin(bloc) : _columnSignup(bloc),
                 ],
               ),
             ),
@@ -91,24 +91,25 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _textFieldName() {
-    return _textFieldGeneral(
-      labelText: 'Nombre',
-      hintText: 'Eduardo Garcia',
-      icon: Icons.person_outline,
-      onChanged: (value) {},
-    );
-  }
+  // Widget _textFieldName() {
+  //   return _textFieldGeneral(
+  //     labelText: 'Nombre',
+  //     hintText: 'Eduardo Garcia',
+  //     icon: Icons.person_outline,
+  //     onChanged: (value) {},
+  //   );
+  // }
 
   Widget _textFieldEmail(LoginBloc bloc) {
     return StreamBuilder(
-      stream: bloc.emailStream,
+      stream: bloc.emailSignUp,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return _textFieldGeneral(
           labelText: 'Correo',
           hintText: 'Eduardo Garcia',
           icon: Icons.email_outlined,
-          onChanged: bloc.changeEmail,
+          onChanged: bloc.changeMailSignUp,
+          errorText: snapshot.error,
         );
       },
     );
@@ -116,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldPassword(LoginBloc bloc) {
     return StreamBuilder(
-      stream: bloc.passwordStream,
+      stream: bloc.passwordSignUpStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return _textFieldGeneral(
           labelText: 'Contraseña',
@@ -128,9 +129,10 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
   }
-  Widget _textFieldPasswordSign(LoginBloc bloc){
+
+  Widget _textFieldPasswordSign(LoginBloc bloc) {
     return StreamBuilder(
-      stream: bloc.passwordStream,
+      stream: bloc.rePasswordSignUpStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return _textFieldGeneral(
           labelText: 'Reingresa la Contraseña',
@@ -142,7 +144,8 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
   }
-  Widget _buttonSignUp() {
+
+  Widget _buttonSignUp(LoginBloc bloc) {
     return TextButton(
       style: ButtonStyle(
         elevation: MaterialStateProperty.all(10),
@@ -170,22 +173,31 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       onPressed: () async {
+        print("${bloc.emailSign} y ${bloc.rePasswordSign}");
         setState(() {
           showSpinner = true;
         });
-        try {
-          // final user = await _auth.createUserWithEmailAndPassword(
-          //   email: email,
-          //   password: password,
-          // );
-          // if()
-          // {
-          //
-          // }
-          setState(() {
-            showSpinner = false;
-          });
-        } catch (e) {}
+        if (bloc.emailSign == null) {
+          _showEmptyTextField();
+          showSpinner = false;
+        } else if (bloc.rePasswordSign == null) {
+          _showEmptyTextField();
+          showSpinner = false;
+        } else {
+          try {
+            final user = await _auth.createUserWithEmailAndPassword(
+              email: bloc.emailSign,
+              password: bloc.rePasswordSign,
+            );
+            if (user != null) {
+              showSpinner = false;
+              _addUser();
+            }
+            setState(() {
+              showSpinner = false;
+            });
+          } catch (e) {}
+        }
       },
     );
   }
@@ -193,10 +205,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget _columnSignup(LoginBloc bloc) {
     return Column(
       children: [
-        SizedBox(
-          height: 25.0,
-        ),
-        _textFieldName(),
+        // SizedBox(
+        //   height: 25.0,
+        // ),
+        // _textFieldName(),
         SizedBox(
           height: 15.0,
         ),
@@ -205,12 +217,14 @@ class _LoginPageState extends State<LoginPage> {
           height: 15.0,
         ),
         _textFieldPassword(bloc),
-        SizedBox(height: 15.0,),
+        SizedBox(
+          height: 15.0,
+        ),
         _textFieldPasswordSign(bloc),
         SizedBox(
           height: 30.0,
         ),
-        _buttonSignUp(),
+        _buttonSignUp(bloc),
       ],
     );
   }
@@ -240,7 +254,7 @@ class _LoginPageState extends State<LoginPage> {
         SizedBox(
           height: 65.0,
         ),
-        _buttonLogin(),
+        _buttonLogin(bloc),
       ],
     );
   }
@@ -275,7 +289,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buttonLogin() {
+  Widget _buttonLogin(LoginBloc bloc) {
     return ElevatedButton(
       style: ButtonStyle(
         elevation: MaterialStateProperty.resolveWith<double>(
@@ -302,15 +316,89 @@ class _LoginPageState extends State<LoginPage> {
           fontWeight: FontWeight.w700,
         ),
       ),
-      onPressed: () {
-        setState(() {
-          Navigator.pushNamed(context, MenuBottomNavigation.id);
-        });
+      onPressed: () async {
+        if (bloc.password == null || bloc.email == null) {
+          _showEmptyTextField();
+          setState(() {
+            showSpinner = false;
+          });
+        } else if (bloc.password != null && bloc.email != null) {
+          setState(() {
+            showSpinner = true;
+          });
+          try {
+            // prefs.email = bloc.email;
+            // prefs.password = bloc.password;
+            final user = await _auth.signInWithEmailAndPassword(
+                email: bloc.email, password: bloc.password);
+            if (user != null) {
+              Navigator.pushNamed(context, MenuBottomNavigation.id);
+            }
+            setState(() {
+              showSpinner = false;
+            });
+          } catch (e) {
+            //print('$e');
+            _errorLogin();
+            setState(() {
+              showSpinner = false;
+            });
+          }
+        }
       },
     );
   }
 
-  //void _addUser() {}
+  void _errorLogin() {
+    if (Platform.isAndroid) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertContent(
+            'Error al Ingresar',
+            'Vuelva a intentarlo',
+          );
+        },
+      );
+    } else {
+      showCupertinoDialog(
+        context: context,
+        builder: (_) {
+          return CupertinoDialogText(
+            context: context,
+            contentTitle: 'Error al Ingresar',
+            textTitle: 'Vuelva a intentarlo',
+          );
+        },
+      );
+    }
+  }
+
+  void _addUser() {
+    if (Platform.isAndroid) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertContent(
+            'Te registraste de manera Exitosa',
+            "Bienvenido!",
+          );
+        },
+      );
+    } else {
+      showCupertinoDialog(
+        context: context,
+        builder: (_) {
+          return CupertinoDialogText(
+            context: context,
+            contentTitle: 'Te registraste de manera Exitosa',
+            textTitle: 'Bienvenido!',
+          );
+        },
+      );
+    }
+  }
+
   void _showEmptyTextField() {
     if (Platform.isAndroid) {
       showDialog(
