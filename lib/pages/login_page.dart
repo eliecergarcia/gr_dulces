@@ -1,6 +1,9 @@
 import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:quiero_dulces/block/provider.dart';
 import 'package:quiero_dulces/widgets/alert_dialog.dart';
 import 'package:quiero_dulces/widgets/bottom_navigation.dart';
@@ -14,7 +17,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool selectLogin = true;
-  //final _auth = FirebaseApp.instance;
+  bool showSpinner = false;
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -22,61 +26,64 @@ class _LoginPageState extends State<LoginPage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xffFE0000),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Quiero \nDulces".toUpperCase(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 55,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Impact',
+        body: ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Quiero \nDulces".toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 55,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Impact',
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 35.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectLogin = true;
-                        });
-                      },
-                      child: const Text(
-                        'Registrate',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
+                  SizedBox(
+                    height: 35.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectLogin = true;
+                          });
+                        },
+                        child: const Text(
+                          'Registrate',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectLogin = false;
-                        });
-                      },
-                      child: const Text(
-                        'Inicia Sesion',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold,
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectLogin = false;
+                          });
+                        },
+                        child: const Text(
+                          'Inicia Sesion',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                (selectLogin) ? _columnSignup(bloc) : _columnLogin(bloc),
-              ],
+                    ],
+                  ),
+                  (selectLogin) ? _columnSignup(bloc) : _columnLogin(bloc),
+                ],
+              ),
             ),
           ),
         ),
@@ -121,7 +128,20 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
   }
-
+  Widget _textFieldPasswordSign(LoginBloc bloc){
+    return StreamBuilder(
+      stream: bloc.passwordStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return _textFieldGeneral(
+          labelText: 'Reingresa la Contraseña',
+          icon: Icons.lock_outline_rounded,
+          obscureText: true,
+          onChanged: bloc.changeRePasswordSignUp,
+          errorText: snapshot.error,
+        );
+      },
+    );
+  }
   Widget _buttonSignUp() {
     return TextButton(
       style: ButtonStyle(
@@ -149,7 +169,24 @@ class _LoginPageState extends State<LoginPage> {
           fontSize: 20.0,
         ),
       ),
-      onPressed: () {},
+      onPressed: () async {
+        setState(() {
+          showSpinner = true;
+        });
+        try {
+          // final user = await _auth.createUserWithEmailAndPassword(
+          //   email: email,
+          //   password: password,
+          // );
+          // if()
+          // {
+          //
+          // }
+          setState(() {
+            showSpinner = false;
+          });
+        } catch (e) {}
+      },
     );
   }
 
@@ -168,6 +205,8 @@ class _LoginPageState extends State<LoginPage> {
           height: 15.0,
         ),
         _textFieldPassword(bloc),
+        SizedBox(height: 15.0,),
+        _textFieldPasswordSign(bloc),
         SizedBox(
           height: 30.0,
         ),
@@ -223,7 +262,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _textFieldPasswordLogin(LoginBloc bloc) {
     return StreamBuilder(
-      stream: bloc.emailStream,
+      stream: bloc.passwordStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return _textFieldGeneral(
           labelText: 'Contraseña',

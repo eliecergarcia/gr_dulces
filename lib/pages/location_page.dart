@@ -75,7 +75,13 @@ class _LocationPageState extends State<LocationPage> {
       ),
       drawer: LateralMenu(),
       body: Center(
-        child: Text('Localizacion'),
+        child: Text(
+          'Proximamente, \nfunciones en desarrollo',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 25,
+          ),
+        ),
       ),
     );
   }

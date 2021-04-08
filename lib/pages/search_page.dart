@@ -17,12 +17,12 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _filter = new TextEditingController();
   Icon _searchIcon = new Icon(Icons.search);
-  Widget _appBarTitle = new Text('Search Example');
+  Widget _appBarTitle = new Text('Quiero Dulces');
   List<Product> items;
   List<Product> filteredItems;
   StreamSubscription<Event> _onProductAddedSubscription;
   StreamSubscription<Event> _onProductChangeSubscription;
-  String _searchText = "";
+  String _searchText;
 
   _SearchPageState() {
     _filter.addListener(() {
@@ -89,8 +89,14 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
       drawer: LateralMenu(),
-      body: Container(
-        child: _buildList(),
+      body: Center(
+        child: Text(
+          'Proximamente, \nfunciones en desarrollo',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 25,
+          ),
+        ),
       ),
     );
   }
@@ -110,27 +116,27 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
-  Widget _buildList() {
-    if (!(_searchText.isEmpty)) {
-      List tempList = [];
-      for (int i = 0; i < filteredItems.length; i++) {
-        if (filteredItems[i]
-            .name
-            .toLowerCase()
-            .contains(_searchText.toLowerCase())) {
-          tempList.add(filteredItems[i]);
-        }
-      }
-      filteredItems = tempList;
-    }
-    return ListView.builder(
-      itemCount: items == null ? 0 : filteredItems.length,
-      itemBuilder: (BuildContext context, int index) {
-        return new ListTile(
-          title: Text(filteredItems[index].name),
-          onTap: () => print(filteredItems[index].name),
-        );
-      },
-    );
-  }
+  // Widget _buildList() {
+  //   if (!(_searchText.isEmpty)) {
+  //     List tempList = [];
+  //     for (int i = 0; i < filteredItems.length; i++) {
+  //       if (filteredItems[i]
+  //           .name
+  //           .toLowerCase()
+  //           .contains(_searchText.toLowerCase())) {
+  //         tempList.add(filteredItems[i]);
+  //       }
+  //     }
+  //     filteredItems = tempList;
+  //   }
+  //   return ListView.builder(
+  //     itemCount: items == null ? 0 : filteredItems.length,
+  //     itemBuilder: (BuildContext context, int index) {
+  //       return new ListTile(
+  //         title: Text(filteredItems[index].name),
+  //         onTap: () => print(filteredItems[index].name),
+  //       );
+  //     },
+  //   );
+  // }
 }
